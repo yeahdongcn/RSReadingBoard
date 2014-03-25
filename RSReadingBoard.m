@@ -8,6 +8,8 @@
 
 #import "RSReadingBoard.h"
 
+#import "RSArticle.h"
+
 @interface RSReadingBoard ()
 
 @property (nonatomic, weak) IBOutlet UIView  *colorMarker;
@@ -37,12 +39,12 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     if (IS_IPAD()) {
         name = kReadingBoardNib_iPad;
     }
-    return [self boardWithNibNamed:name];
+    return [self boardWithWithNibName:name bundle:[NSBundle mainBundle]];
 }
 
-+ (instancetype)boardWithNibNamed:(NSString *)name
++ (instancetype)boardWithWithNibName:(NSString *)name bundle:(NSBundle *)bundle
 {
-    return [[[NSBundle mainBundle] loadNibNamed:name owner:nil options:nil] firstObject];
+    return [[bundle loadNibNamed:name owner:nil options:nil] firstObject];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -57,6 +59,11 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+
+- (void)setArticle:(RSArticle *)article
+{
+    _article = article;
 }
 
 @end

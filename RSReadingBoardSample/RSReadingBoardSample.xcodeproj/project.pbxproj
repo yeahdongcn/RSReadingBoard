@@ -19,6 +19,7 @@
 		D0C2E4A318E170C200B784B8 /* RSReadingBoard_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2E49F18E170C200B784B8 /* RSReadingBoard_iPad.xib */; };
 		D0C2E4A418E170C200B784B8 /* RSReadingBoard_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2E4A018E170C200B784B8 /* RSReadingBoard_iPhone.xib */; };
 		D0C2E4A518E170C200B784B8 /* RSReadingBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2E4A218E170C200B784B8 /* RSReadingBoard.m */; };
+		D0C2E4A818E174A600B784B8 /* RSArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2E4A718E174A600B784B8 /* RSArticle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,8 @@
 		D0C2E4A018E170C200B784B8 /* RSReadingBoard_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RSReadingBoard_iPhone.xib; path = ../RSReadingBoard_iPhone.xib; sourceTree = "<group>"; };
 		D0C2E4A118E170C200B784B8 /* RSReadingBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSReadingBoard.h; path = ../RSReadingBoard.h; sourceTree = "<group>"; };
 		D0C2E4A218E170C200B784B8 /* RSReadingBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSReadingBoard.m; path = ../RSReadingBoard.m; sourceTree = "<group>"; };
+		D0C2E4A618E174A600B784B8 /* RSArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSArticle.h; path = ../RSArticle.h; sourceTree = "<group>"; };
+		D0C2E4A718E174A600B784B8 /* RSArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSArticle.m; path = ../RSArticle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +119,8 @@
 				D0C2E4A018E170C200B784B8 /* RSReadingBoard_iPhone.xib */,
 				D0C2E4A118E170C200B784B8 /* RSReadingBoard.h */,
 				D0C2E4A218E170C200B784B8 /* RSReadingBoard.m */,
+				D0C2E4A618E174A600B784B8 /* RSArticle.h */,
+				D0C2E4A718E174A600B784B8 /* RSArticle.m */,
 			);
 			name = RSReadingBoard;
 			sourceTree = "<group>";
@@ -192,6 +197,7 @@
 				D0C2E46A18E15B2400B784B8 /* main.m in Sources */,
 				D0C2E46E18E15B2400B784B8 /* RSAppDelegate.m in Sources */,
 				D0C2E4A518E170C200B784B8 /* RSReadingBoard.m in Sources */,
+				D0C2E4A818E174A600B784B8 /* RSArticle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
