@@ -1,5 +1,5 @@
 //
-//  RSViewController.h
+//  RSReadingBoard.h
 //  RSReadingBoardSample
 //
 //  Created by R0CKSTAR on 3/25/14.
@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RSViewController : UIViewController
+@interface RSReadingBoard : UIViewController
+
++ (instancetype)board;
+
++ (instancetype)boardWithNibNamed:(NSString *)name;
 
 @end
