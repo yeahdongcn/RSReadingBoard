@@ -64,6 +64,10 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 - (void)setArticle:(RSArticle *)article
 {
     _article = article;
+    
+    self.titleLabel.text = article.title;
+    self.sourceLabel.text = article.source;
+    self.dateLabel.text = article.date;
 }
 
 @end

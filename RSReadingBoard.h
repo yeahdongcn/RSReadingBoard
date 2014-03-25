@@ -14,8 +14,10 @@
 
 @property (nonatomic, strong) RSArticle *article;
 
+@property (nonatomic) UIEdgeInsets contentInsets;
+
 /**
- *  Using default xib for initializing a reading board
+ *  Using default xib and bundle for initializing a reading board
  *
  *  @return RSReadingBoard instance
  */
@@ -25,7 +27,7 @@
  *  Using custom xib for initializing a reading board
  *
  *  @param name   Xib name
- *  @param bundle Bundle
+ *  @param bundle Which bundle the xib file lives
  *
  *  @return RSReadingBoard instance
  */

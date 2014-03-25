@@ -10,4 +10,10 @@
 
 @interface RSArticle : NSObject
 
+@property (nonatomic, strong) NSString *title;
+
+@property (nonatomic, strong) NSString *source;
+
+@property (nonatomic, strong) NSString *date;
+
 @end
