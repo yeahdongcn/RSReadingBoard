@@ -12,6 +12,8 @@
 
 @interface RSReadingBoard ()
 
+@property (nonatomic, weak) IBOutlet UIScrollView *contentView;
+
 @property (nonatomic, weak) IBOutlet UIView  *colorMarker;
 
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;

@@ -14,13 +14,74 @@
             <view key="view" contentMode="scaleToFill" id="xhm-Ar-SC5">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Na1-pp-U3U">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="McR-ar-iMp">
+                                <rect key="frame" x="14" y="20" width="4" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="4" id="WIQ-ro-yXN"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIh-eb-TIm">
+                                <rect key="frame" x="20" y="20" width="96" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ia8-0h-8cJ">
+                                <rect key="frame" x="20" y="49" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7s-Lt-EiU">
+                                <rect key="frame" x="74" y="49" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="gIh-eb-TIm" firstAttribute="leading" secondItem="McR-ar-iMp" secondAttribute="trailing" constant="2" id="83g-7R-BlB"/>
+                            <constraint firstItem="gIh-eb-TIm" firstAttribute="top" secondItem="McR-ar-iMp" secondAttribute="top" id="ChQ-pL-AkQ"/>
+                            <constraint firstAttribute="trailing" secondItem="gIh-eb-TIm" secondAttribute="trailing" constant="139" id="JkZ-Ed-ZW6"/>
+                            <constraint firstAttribute="bottom" secondItem="Ia8-0h-8cJ" secondAttribute="bottom" constant="498" id="a8e-2j-Wny"/>
+                            <constraint firstItem="McR-ar-iMp" firstAttribute="bottom" secondItem="Ia8-0h-8cJ" secondAttribute="bottom" id="axn-BO-b2p"/>
+                            <constraint firstItem="f7s-Lt-EiU" firstAttribute="baseline" secondItem="Ia8-0h-8cJ" secondAttribute="baseline" id="cTa-Ea-3np"/>
+                            <constraint firstItem="Ia8-0h-8cJ" firstAttribute="leading" secondItem="gIh-eb-TIm" secondAttribute="leading" id="f3f-De-bII"/>
+                            <constraint firstItem="Ia8-0h-8cJ" firstAttribute="top" secondItem="gIh-eb-TIm" secondAttribute="bottom" constant="8" symbolic="YES" id="lKR-RQ-RVQ"/>
+                            <constraint firstItem="gIh-eb-TIm" firstAttribute="leading" secondItem="Na1-pp-U3U" secondAttribute="leading" constant="20" symbolic="YES" id="sBj-Xo-t3S"/>
+                            <constraint firstItem="gIh-eb-TIm" firstAttribute="top" secondItem="Na1-pp-U3U" secondAttribute="top" constant="20" symbolic="YES" id="xFD-qd-NNf"/>
+                            <constraint firstItem="f7s-Lt-EiU" firstAttribute="trailing" secondItem="gIh-eb-TIm" secondAttribute="trailing" id="yeD-03-n16"/>
+                        </constraints>
+                    </scrollView>
+                </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Na1-pp-U3U" secondAttribute="trailing" id="4FX-6h-dsl"/>
+                    <constraint firstItem="Na1-pp-U3U" firstAttribute="top" secondItem="xhm-Ar-SC5" secondAttribute="top" id="CVP-sy-k8U"/>
+                    <constraint firstItem="Na1-pp-U3U" firstAttribute="leading" secondItem="xhm-Ar-SC5" secondAttribute="leading" id="RcW-8A-blX"/>
+                    <constraint firstAttribute="bottom" secondItem="Na1-pp-U3U" secondAttribute="bottom" id="kXH-yX-fKX"/>
+                </constraints>
             </view>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <connections>
+                <outlet property="colorMarker" destination="McR-ar-iMp" id="52s-40-sfH"/>
+                <outlet property="contentView" destination="Na1-pp-U3U" id="OjD-RP-dLc"/>
+                <outlet property="dateLabel" destination="f7s-Lt-EiU" id="KbF-6p-3VA"/>
+                <outlet property="sourceLabel" destination="Ia8-0h-8cJ" id="32y-4b-z72"/>
+                <outlet property="titleLabel" destination="gIh-eb-TIm" id="io3-El-A1W"/>
+            </connections>
         </viewController>
     </objects>
 </document>
