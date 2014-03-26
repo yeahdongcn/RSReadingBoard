@@ -12,15 +12,42 @@
 
 @interface RSReadingBoard ()
 
-@property (nonatomic, weak) IBOutlet UIScrollView *contentView;
+@property (nonatomic, weak) IBOutlet UIScrollView *vContent;
 
-@property (nonatomic, weak) IBOutlet UIView  *colorMarker;
+@property (nonatomic, weak) IBOutlet UIImageView  *ivImage;
 
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UIView       *vColor;
 
-@property (nonatomic, weak) IBOutlet UILabel *sourceLabel;
+@property (nonatomic, weak) IBOutlet UILabel      *lTitle;
 
-@property (nonatomic, weak) IBOutlet UILabel *dateLabel;
+@property (nonatomic, weak) IBOutlet UILabel      *lSource;
+
+@property (nonatomic, weak) IBOutlet UILabel      *lDate;
+
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lclTitleTop;
+
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lclTitleTrailing;
+
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcVerticalSpace;
+
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lchorizontalSpace;
+
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageWidth;
+
+/**
+ *  Constraint which controls whether to show this image view
+ */
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageHeight;
+
+/**
+ *  Constraint which controls the scrollview's contentSize->width
+ */
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageTrailing;
+
+/**
+ *  Constraint which controls the scrollview's contentSize->height
+ */
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageBottom;
 
 @end
 
@@ -61,15 +88,19 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    for (UIView *subview in self.vContent.subviews) {
+        subview.layer.borderWidth = 1.0f;
+    }
 }
 
 - (void)setArticle:(RSArticle *)article
 {
     _article = article;
     
-    self.titleLabel.text = article.title;
-    self.sourceLabel.text = article.source;
-    self.dateLabel.text = article.date;
+    self.lTitle.text = article.title;
+    self.lSource.text = article.source;
+    self.lDate.text = article.date;
 }
 
 @end

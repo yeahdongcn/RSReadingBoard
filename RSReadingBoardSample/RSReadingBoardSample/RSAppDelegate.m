@@ -8,13 +8,22 @@
 
 #import "RSAppDelegate.h"
 
+#import "RSArticle.h"
+
 #import "RSReadingBoard.h"
 
 @implementation RSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [(UINavigationController *)self.window.rootViewController setViewControllers:@[[RSReadingBoard board]]];
+    RSReadingBoard *board = [RSReadingBoard board];
+    RSArticle *article = [RSArticle new];
+    article.title = @"MH370: Angry families march on Malaysian Embassy in Beijing";
+    article.source = @"By Sophie Brown, CNN";
+    article.date = @"March 25, 2014 -- Updated 1129 GMT (1929 HKT)";
+    board.article = article;
+    [(UINavigationController *)self.window.rootViewController setViewControllers:@[board]];
+    
     return YES;
 }
 							
