@@ -16,6 +16,16 @@
 
 @property (nonatomic) UIEdgeInsets contentInsets;
 
+
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcVerticalSpace;
+
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lchorizontalSpace;
+
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageWidth;
+
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageHeight;
+
+
 /**
  *  Using default xib and bundle for initializing a reading board
  *

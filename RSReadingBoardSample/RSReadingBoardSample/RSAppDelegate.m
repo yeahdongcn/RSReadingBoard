@@ -18,6 +18,7 @@
 {
     RSReadingBoard *board = [RSReadingBoard board];
     RSArticle *article = [RSArticle new];
+    article.image = [UIImage imageNamed:@"image"];
     article.title = @"MH370: Angry families march on Malaysian Embassy in Beijing";
     article.source = @"By Sophie Brown, CNN";
     article.date = @"March 25, 2014 -- Updated 1129 GMT (1929 HKT)";

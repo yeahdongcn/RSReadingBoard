@@ -10,6 +10,128 @@
 
 #import "RSArticle.h"
 
+typedef NS_ENUM(NSUInteger, RSHorizontalAlignment) {
+    RSHorizontalAlignmentCenter = 0,
+    RSHorizontalAlignmentLeft,
+    RSHorizontalAlignmentRight,
+};
+
+typedef NS_ENUM(NSUInteger, RSVerticalAlignment) {
+    RSVerticalAlignmentCenter = 0,
+    RSVerticalAlignmentTop,
+    RSVerticalAlignmentBottom,
+};
+
+@interface UIImage (Fitness)
+
+- (UIImage *)imageWithNewSize:(CGSize)newSize
+          horizontalAlignment:(RSHorizontalAlignment)horizontalAlignment
+            verticalAlignment:(RSVerticalAlignment)verticalAlignment
+                        scale:(CGFloat)scale;
+
+/**
+ *  Create a new UIImage instance if its size NOT equals to the give size,
+ *  otherwise retrun the unchanged self.
+ *  NOTE this function use RSHorizontalAlignmentCenter, RSVerticalAlignmentTop
+ *  and current screen scale.
+ *
+ *  @param newSize The given size.
+ *
+ *  @return UIImage instance.
+ */
+- (UIImage *)imageWithNewSize:(CGSize)newSize;
+
+@end
+
+@implementation UIImage (Fitness)
+
+- (UIImage *)imageWithNewSize:(CGSize)newSize
+          horizontalAlignment:(RSHorizontalAlignment)horizontalAlignment
+            verticalAlignment:(RSVerticalAlignment)verticalAlignment
+                        scale:(CGFloat)scale
+{
+    if (CGSizeEqualToSize(self.size, newSize) == NO) {
+        CGFloat sourceWidth    = self.size.width;
+        CGFloat sourceHeight   = self.size.height;
+        CGFloat targetWidth    = newSize.width;
+        CGFloat targetHeight   = newSize.height;
+        CGFloat scaleFactor    = 0.0f;
+        CGFloat scaledWidth    = targetWidth;
+        CGFloat scaledHeight   = targetHeight;
+        CGPoint thumbnailPoint = CGPointMake(0.0f ,0.0f);
+        
+        CGFloat widthFactor = targetWidth / sourceWidth;
+        CGFloat heightFactor = targetHeight / sourceHeight;
+        
+        if (widthFactor > heightFactor) {
+            scaleFactor = widthFactor;  // Fit height
+        } else {
+            scaleFactor = heightFactor; // Fit width
+        }
+        
+        scaledWidth  = sourceWidth * scaleFactor;
+        scaledHeight = sourceHeight * scaleFactor;
+        
+        if (widthFactor > heightFactor) {
+            switch (verticalAlignment) {
+                case RSVerticalAlignmentCenter:
+                    // V: Center align
+                    thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+                    break;
+                case RSVerticalAlignmentTop:
+                    // V: Top align
+                    thumbnailPoint.y = 0;
+                    break;
+                case RSVerticalAlignmentBottom:
+                    // V: Bottom align
+                    thumbnailPoint.y = targetHeight - scaledHeight;
+                    break;
+                default:
+                    break;
+            }
+        } else if (widthFactor < heightFactor) {
+            switch (horizontalAlignment) {
+                case RSHorizontalAlignmentCenter:
+                    // H: Center align
+                    thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+                    break;
+                case RSHorizontalAlignmentLeft:
+                    // H: Left align
+                    thumbnailPoint.x = 0;
+                    break;
+                case RSHorizontalAlignmentRight:
+                    // H: Right align
+                    thumbnailPoint.x = targetWidth - scaledWidth;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
+        CGRect thumbnailRect = CGRectZero;
+        thumbnailRect.origin = thumbnailPoint;
+        thumbnailRect.size.width  = scaledWidth;
+        thumbnailRect.size.height = scaledHeight;
+        [self drawInRect:thumbnailRect];
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return newImage;
+    }
+    return self;
+}
+
+- (UIImage *)imageWithNewSize:(CGSize)newSize
+{
+    return [self imageWithNewSize:newSize
+              horizontalAlignment:RSHorizontalAlignmentCenter
+                verticalAlignment:RSVerticalAlignmentTop
+                            scale:[[UIScreen mainScreen] scale]];
+}
+
+@end
+
 @interface RSReadingBoard ()
 
 @property (nonatomic, weak) IBOutlet UIScrollView *vContent;
@@ -27,17 +149,6 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *lclTitleTop;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *lclTitleTrailing;
-
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcVerticalSpace;
-
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lchorizontalSpace;
-
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageWidth;
-
-/**
- *  Constraint which controls whether to show this image view
- */
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageHeight;
 
 /**
  *  Constraint which controls the scrollview's contentSize->width
@@ -98,6 +209,16 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 {
     _article = article;
     
+    if (article.image) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImage *image = [article.image imageWithNewSize:CGSizeMake(self.lcivImageWidth.constant, self.lcivImageHeight.constant)];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.ivImage.image = image;
+            });
+        });
+    } else {
+        self.lcivImageHeight.constant = 0;
+    }
     self.lTitle.text = article.title;
     self.lSource.text = article.source;
     self.lDate.text = article.date;
