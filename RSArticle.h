@@ -18,4 +18,8 @@
 
 @property (nonatomic, strong) NSString *date;
 
+@property (nonatomic, strong) NSString *body;
+
+@property (nonatomic, strong) NSArray  *clips;
+
 @end

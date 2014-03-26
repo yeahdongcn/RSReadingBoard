@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RSReadingBoard"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <viewController id="aok-en-AOi" customClass="RSReadingBoard">
+        <viewController automaticallyAdjustsScrollViewInsets="NO" id="aok-en-AOi" customClass="RSReadingBoard">
             <layoutGuides>
                 <viewControllerLayoutGuide type="top" id="hd0-aT-n9w"/>
                 <viewControllerLayoutGuide type="bottom" id="FJH-ON-6Dy"/>
@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Na1-pp-U3U">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OZ7-Wz-qpg">
@@ -28,11 +28,11 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="McR-ar-iMp">
-                                <rect key="frame" x="14" y="158" width="4" height="43"/>
+                                <rect key="frame" x="10" y="158" width="5" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="4" id="WIQ-ro-yXN"/>
+                                    <constraint firstAttribute="width" constant="5" id="WIQ-ro-yXN"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a title" lineBreakMode="tailTruncation" numberOfLines="99" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="gIh-eb-TIm">
@@ -57,13 +57,14 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="OZ7-Wz-qpg" secondAttribute="bottom" constant="468" id="7lJ-23-JiK"/>
-                            <constraint firstItem="gIh-eb-TIm" firstAttribute="leading" secondItem="McR-ar-iMp" secondAttribute="trailing" constant="2" id="83g-7R-BlB"/>
+                            <constraint firstItem="gIh-eb-TIm" firstAttribute="leading" secondItem="McR-ar-iMp" secondAttribute="trailing" constant="5" id="83g-7R-BlB"/>
                             <constraint firstItem="gIh-eb-TIm" firstAttribute="trailing" secondItem="OZ7-Wz-qpg" secondAttribute="trailing" constant="-20" id="8DD-Bp-nWI"/>
                             <constraint firstItem="f7s-Lt-EiU" firstAttribute="width" secondItem="Ia8-0h-8cJ" secondAttribute="width" id="BTo-dY-02O"/>
                             <constraint firstItem="gIh-eb-TIm" firstAttribute="top" secondItem="McR-ar-iMp" secondAttribute="top" id="ChQ-pL-AkQ"/>
                             <constraint firstItem="f7s-Lt-EiU" firstAttribute="leading" secondItem="Ia8-0h-8cJ" secondAttribute="trailing" constant="20" id="HSJ-u9-ry8"/>
                             <constraint firstItem="gIh-eb-TIm" firstAttribute="top" secondItem="OZ7-Wz-qpg" secondAttribute="bottom" constant="8" symbolic="YES" id="IKh-1y-70f"/>
                             <constraint firstAttribute="trailing" secondItem="OZ7-Wz-qpg" secondAttribute="trailing" id="Qil-FX-3mp"/>
+                            <constraint firstItem="Ia8-0h-8cJ" firstAttribute="bottom" secondItem="f7s-Lt-EiU" secondAttribute="bottom" id="ZvZ-aL-rdT"/>
                             <constraint firstItem="McR-ar-iMp" firstAttribute="bottom" secondItem="Ia8-0h-8cJ" secondAttribute="bottom" id="axn-BO-b2p"/>
                             <constraint firstItem="Ia8-0h-8cJ" firstAttribute="leading" secondItem="gIh-eb-TIm" secondAttribute="leading" id="f3f-De-bII"/>
                             <constraint firstItem="OZ7-Wz-qpg" firstAttribute="top" secondItem="Na1-pp-U3U" secondAttribute="top" id="feg-1j-6ke"/>
@@ -78,8 +79,8 @@
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Na1-pp-U3U" secondAttribute="trailing" id="4FX-6h-dsl"/>
-                    <constraint firstItem="Na1-pp-U3U" firstAttribute="top" secondItem="xhm-Ar-SC5" secondAttribute="top" id="CVP-sy-k8U"/>
                     <constraint firstItem="Na1-pp-U3U" firstAttribute="leading" secondItem="xhm-Ar-SC5" secondAttribute="leading" id="RcW-8A-blX"/>
+                    <constraint firstItem="Na1-pp-U3U" firstAttribute="top" secondItem="hd0-aT-n9w" secondAttribute="bottom" id="k2T-a7-1YX"/>
                     <constraint firstAttribute="bottom" secondItem="Na1-pp-U3U" secondAttribute="bottom" id="kXH-yX-fKX"/>
                 </constraints>
             </view>

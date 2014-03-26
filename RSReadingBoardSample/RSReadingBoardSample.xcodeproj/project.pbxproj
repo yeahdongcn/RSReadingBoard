@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D080275C18E2CFD70095F1FB /* Body.txt in Resources */ = {isa = PBXBuildFile; fileRef = D080275B18E2CFD70095F1FB /* Body.txt */; };
 		D0C2E45E18E15B2400B784B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C2E45D18E15B2400B784B8 /* Foundation.framework */; };
 		D0C2E46018E15B2400B784B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C2E45F18E15B2400B784B8 /* CoreGraphics.framework */; };
 		D0C2E46218E15B2400B784B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C2E46118E15B2400B784B8 /* UIKit.framework */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D080275B18E2CFD70095F1FB /* Body.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Body.txt; sourceTree = "<group>"; };
 		D0C2E45A18E15B2400B784B8 /* RSReadingBoardSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSReadingBoardSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C2E45D18E15B2400B784B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0C2E45F18E15B2400B784B8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -91,6 +93,7 @@
 		D0C2E46318E15B2400B784B8 /* RSReadingBoardSample */ = {
 			isa = PBXGroup;
 			children = (
+				D080275B18E2CFD70095F1FB /* Body.txt */,
 				D0C2E46C18E15B2400B784B8 /* RSAppDelegate.h */,
 				D0C2E46D18E15B2400B784B8 /* RSAppDelegate.m */,
 				D0C2E46F18E15B2400B784B8 /* Main_iPhone.storyboard */,
@@ -180,6 +183,7 @@
 			files = (
 				D0C2E47418E15B2400B784B8 /* Main_iPad.storyboard in Resources */,
 				D0C2E4A418E170C200B784B8 /* RSReadingBoard_iPhone.xib in Resources */,
+				D080275C18E2CFD70095F1FB /* Body.txt in Resources */,
 				D0C2E47918E15B2400B784B8 /* Images.xcassets in Resources */,
 				D0C2E47118E15B2400B784B8 /* Main_iPhone.storyboard in Resources */,
 				D0C2E4A318E170C200B784B8 /* RSReadingBoard_iPad.xib in Resources */,
@@ -348,6 +352,7 @@
 				D0C2E49118E15B2400B784B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

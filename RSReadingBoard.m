@@ -199,10 +199,6 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    for (UIView *subview in self.vContent.subviews) {
-        subview.layer.borderWidth = 1.0f;
-    }
 }
 
 - (void)setArticle:(RSArticle *)article
@@ -222,6 +218,7 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     self.lTitle.text = article.title;
     self.lSource.text = article.source;
     self.lDate.text = article.date;
+    self.vColor.backgroundColor = [UIColor colorWithRed:(arc4random() % 256 / 255.0f) green:(arc4random() % 256 / 255.0f) blue:(arc4random() % 256 / 255.0f) alpha:1.0f];
 }
 
 @end
