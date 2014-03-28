@@ -21,6 +21,14 @@
 
 #define PROPERTY_NAME(property) [[(@""#property) componentsSeparatedByString:@"."] lastObject]
 
+@interface RSClipView : UIImageView
+
+@end
+
+@implementation RSClipView
+
+@end
+
 @interface RSReadingBoard () <UIScrollViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIScrollView *vContent;
@@ -54,6 +62,8 @@
 
 @property (nonatomic, strong) NSMutableDictionary *oldConstants;
 
+@property (nonatomic, strong) NSMutableArray *clipViews;
+
 @end
 
 @implementation RSReadingBoard
@@ -81,8 +91,15 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.contentInsets = UIEdgeInsetsMake(50, 20, 0, 20);
+        self.contentInsets = UIEdgeInsetsMake(60, 20, 10, 20);
+        /**
+         *  @NOTE: Make sure the image view's content mode is aspect fill
+         */
         self.enableImageDragZoomIn = YES;
+        
+        self.bodyBackgroundColor = [UIColor clearColor];
+        self.bodyTextColor = [UIColor darkGrayColor];
+        self.bodyFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     }
     return self;
 }
@@ -126,71 +143,104 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     
     _article = article;
     
-    if (article.image) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            UIImage *image = [article.image imageWithNewSize:CGSizeMake(self.lcivImageWidth.constant, self.lcivImageHeight.constant)];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.ivImage.image = image;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // Header
+        if (article.image) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                UIImage *image = [article.image imageWithNewSize:CGSizeMake(self.lcivImageWidth.constant, self.lcivImageHeight.constant)];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.ivImage.image = image;
+                });
             });
-        });
-    } else {
-        self.lcivImageHeight.constant = 0;
-    }
-    self.lTitle.text = article.title;
-    self.lSource.text = article.source;
-    self.lDate.text = article.date;
-    if (article.color) {
-        self.vColor.backgroundColor = article.color;
-    } else {
-        self.vColor.backgroundColor = [UIColor colorWithRed:(arc4random() % 256 / 255.0f) green:(arc4random() % 256 / 255.0f) blue:(arc4random() % 256 / 255.0f) alpha:1.0f];
-    }
-    [self layoutHeader:NO];
-    
-    self.textStorage = [[NSTextStorage alloc] initWithString:article.body];
-    self.layoutManager = [[NSLayoutManager alloc] init];
-    [self.textStorage addLayoutManager:self.layoutManager];
-    
-    NSUInteger lastGlyph = 0;
-    NSUInteger currentPage = 0;
-    while (lastGlyph < self.layoutManager.numberOfGlyphs) {
-        CGRect frame = CGRectMake(self.contentInsets.left,
-                                  self.contentInsets.top + self.vContent.bounds.size.height * currentPage,
-                                  self.vContent.bounds.size.width - self.contentInsets.left - self.contentInsets.right,
-                                  self.vContent.bounds.size.height - self.contentInsets.top - self.contentInsets.bottom);
-        if (currentPage == 0) {
-            CGFloat δ = self.vColor.frame.origin.y + self.vColor.bounds.size.height;
-            frame.origin.y = δ;
-            frame.size.height = self.vContent.bounds.size.height - δ;
+        } else {
+            self.ivImage.image = nil;
+            self.lcivImageBottom.constant = 0;
+        }
+        self.lTitle.text = article.title;
+        self.lSource.text = article.source;
+        self.lDate.text = article.date;
+        if (article.color) {
+            self.vColor.backgroundColor = article.color;
+        } else {
+            self.vColor.backgroundColor = [UIColor clearColor];
+        }
+        [self layoutHeader:NO];
+        
+        // Body
+        [self.clipViews removeAllObjects];
+        
+        if (article && article.clips) {
+            for (UIImage *clip in article.clips) {
+                RSClipView *clipView = [[RSClipView alloc] initWithImage:clip];
+                [clipView sizeToFit];
+                [self.clipViews addObject:clipView];
+                [self.vContent addSubview:clipView];
+            }
+            NSDictionary *attribute = @{NSFontAttributeName:self.bodyFont};
+            CGRect rect = [article.body boundingRectWithSize:CGSizeMake(self.vContent.bounds.size.width - self.contentInsets.left - self.contentInsets.right, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil];
+            NSUInteger pages = rect.size.height / self.vContent.bounds.size.height;
+            if ([article.clips count] <= pages) {
+                // One clip view at one page
+                for (int i = 0; i < [article.clips count]; i++) {
+                    CGRect frame = [self.clipViews[i] frame];
+                    frame.origin.x = self.vContent.bounds.size.width - frame.size.width - self.contentInsets.right;
+                    frame.origin.y = self.vContent.bounds.size.height * (i + 1) - frame.size.height - self.contentInsets.bottom;
+                    [self.clipViews[i] setFrame:frame];
+                }
+            } else {
+                // All clip views at (pages - 1)
+            }
         }
         
-        NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:frame.size];
-        [self.layoutManager addTextContainer:textContainer];
+        for (UIView *subview in self.vContent.subviews) {
+            if ([subview isKindOfClass:[UITextView class]]) {
+                [subview removeFromSuperview];
+            }
+        }
         
-        UITextView *textView = [[UITextView alloc] initWithFrame:frame
-                                                   textContainer:textContainer];
-        if (self.bodyBackgroundColor) {
-            [textView setBackgroundColor:self.bodyBackgroundColor];
-        } else {
-            [textView setBackgroundColor:[UIColor clearColor]];
+        if (article && article.body) {
+            self.textStorage = [[NSTextStorage alloc] initWithString:article.body];
+            self.layoutManager = [[NSLayoutManager alloc] init];
+            [self.textStorage addLayoutManager:self.layoutManager];
+            
+            NSUInteger lastGlyph = 0;
+            NSUInteger currentPage = 0;
+            while (lastGlyph < self.layoutManager.numberOfGlyphs) {
+                CGRect frame = CGRectMake(self.contentInsets.left,
+                                          self.contentInsets.top + self.vContent.bounds.size.height * currentPage,
+                                          self.vContent.bounds.size.width - self.contentInsets.left - self.contentInsets.right,
+                                          self.vContent.bounds.size.height - self.contentInsets.top - self.contentInsets.bottom);
+                if (currentPage == 0) {
+                    CGFloat δ = self.vColor.frame.origin.y + self.vColor.bounds.size.height;
+                    frame.origin.y = δ;
+                    frame.size.height = self.vContent.bounds.size.height - δ;
+                }
+                
+                NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:frame.size];
+                NSMutableArray *paths = [[NSMutableArray alloc] init];
+                // TODO: NOTWORKING
+                for (RSClipView *clipView in self.clipViews) {
+                    [paths addObject:[UIBezierPath bezierPathWithRect:clipView.frame]];
+                }
+                [textContainer setExclusionPaths:[NSArray arrayWithArray:paths]];
+                [self.layoutManager addTextContainer:textContainer];
+                
+                UITextView *textView = [[UITextView alloc] initWithFrame:frame
+                                                           textContainer:textContainer];
+                [textView setBackgroundColor:self.bodyBackgroundColor];
+                [textView setTextColor:self.bodyTextColor];
+                [textView setFont:self.bodyFont];
+                textView.scrollEnabled = NO;
+                textContainer.size = textView.contentSize;
+                [self.vContent insertSubview:textView atIndex:0];
+                
+                lastGlyph = NSMaxRange([self.layoutManager glyphRangeForTextContainer:textContainer]);
+                currentPage++;
+            }
+            self.lcivImageBottom.constant = self.vContent.bounds.size.height * currentPage - self.lcivImageHeight.constant;
         }
-        if (self.bodyTextColor) {
-            [textView setTextColor:self.bodyTextColor];
-        } else {
-            [textView setTextColor:[UIColor darkGrayColor]];
-        }
-        if (self.bodyFont) {
-            [textView setFont:self.bodyFont];
-        } else {
-            [textView setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-        }
-        textView.scrollEnabled = NO;
-        textContainer.size = textView.contentSize;
-        [self.vContent addSubview:textView];
         
-        lastGlyph = NSMaxRange([self.layoutManager glyphRangeForTextContainer:textContainer]);
-        currentPage++;
-    }
-    self.lcivImageBottom.constant = self.vContent.bounds.size.height * currentPage - self.lcivImageHeight.constant;
+    });
 }
 
 - (NSMutableDictionary *)oldConstants
@@ -199,6 +249,14 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
         _oldConstants = [[NSMutableDictionary alloc] init];
     }
     return _oldConstants;
+}
+
+- (NSMutableArray *)clipViews
+{
+    if (!_clipViews) {
+        _clipViews = [[NSMutableArray alloc] init];
+    }
+    return _clipViews;
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -227,6 +285,7 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
         [self.lSource layoutIfNeeded];
         [self.lDate layoutIfNeeded];
         [self.vColor layoutIfNeeded];
+        [self.ivImage layoutIfNeeded];
     } copy];
     
     if (animated) {
