@@ -81,7 +81,7 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.contentInsets = UIEdgeInsetsMake(20, 20, 20, 20);
+        self.contentInsets = UIEdgeInsetsMake(50, 20, 0, 20);
         self.enableImageDragZoomIn = YES;
     }
     return self;
@@ -110,6 +110,10 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     
     [self.oldConstants setObject:@(self.lcivImageTop.constant) forKey:PROPERTY_NAME(self.lcivImageTop)];
     [self.oldConstants setObject:@(self.lcivImageHeight.constant) forKey:PROPERTY_NAME(self.lcivImageHeight)];
+    [self.oldConstants setObject:@(self.lclTitleTop.constant) forKey:PROPERTY_NAME(self.lclTitleTop)];
+    [self.oldConstants setObject:@(self.lcVerticalSpaceBetweenlTitlelSource.constant) forKey:PROPERTY_NAME(self.lcVerticalSpaceBetweenlTitlelSource)];
+    [self.oldConstants setObject:self.lTitle.font forKey:[NSString stringWithFormat:@"%@%@", PROPERTY_NAME(self.lTitle), @"Font"]];
+    [self.oldConstants setObject:self.lTitle.textColor forKey:[NSString stringWithFormat:@"%@%@", PROPERTY_NAME(self.lTitle), @"Color"]];
 }
 
 #pragma mark - Setters
@@ -140,10 +144,7 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     } else {
         self.vColor.backgroundColor = [UIColor colorWithRed:(arc4random() % 256 / 255.0f) green:(arc4random() % 256 / 255.0f) blue:(arc4random() % 256 / 255.0f) alpha:1.0f];
     }
-    [self.lTitle layoutIfNeeded];
-    [self.lSource layoutIfNeeded];
-    [self.lDate layoutIfNeeded];
-    [self.vColor layoutIfNeeded];
+    [self layoutHeader:NO];
     
     self.textStorage = [[NSTextStorage alloc] initWithString:article.body];
     self.layoutManager = [[NSLayoutManager alloc] init];
@@ -158,8 +159,8 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                                   self.vContent.bounds.size.height - self.contentInsets.top - self.contentInsets.bottom);
         if (currentPage == 0) {
             CGFloat δ = self.vColor.frame.origin.y + self.vColor.bounds.size.height;
-            frame.origin.y += δ;
-            frame.size.height -= δ;
+            frame.origin.y = δ;
+            frame.size.height = self.vContent.bounds.size.height - δ;
         }
         
         NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:frame.size];
@@ -215,6 +216,50 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                 self.lcivImageHeight.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcivImageHeight)] floatValue];
             }
             [self.ivImage layoutIfNeeded];
+        }
+    }
+}
+
+- (void)layoutHeader:(BOOL)animated
+{
+    void(^layoutIfNeeded)() = [^() {
+        [self.lTitle layoutIfNeeded];
+        [self.lSource layoutIfNeeded];
+        [self.lDate layoutIfNeeded];
+        [self.vColor layoutIfNeeded];
+    } copy];
+    
+    if (animated) {
+        [UIView animateWithDuration:0.3f animations:^{
+            layoutIfNeeded();
+        }];
+    } else {
+        layoutIfNeeded();
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (scrollView == self.vContent) {
+        NSUInteger currentPage = roundf(scrollView.contentOffset.y / (scrollView.frame.size.height));
+        if (currentPage == 0) {
+            self.lTitle.font = [self.oldConstants objectForKey:[NSString stringWithFormat:@"%@%@", PROPERTY_NAME(self.lTitle), @"Font"]];
+            self.lTitle.textColor = [self.oldConstants objectForKey:[NSString stringWithFormat:@"%@%@", PROPERTY_NAME(self.lTitle), @"Color"]];
+            self.lclTitleTop.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTop)] floatValue];
+            self.lcVerticalSpaceBetweenlTitlelSource.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcVerticalSpaceBetweenlTitlelSource)] floatValue];
+            self.lSource.text = self.article.source;
+            self.lDate.text = self.article.date;
+            [self layoutHeader:YES];
+            
+        } else if (currentPage > 0) {
+            self.lTitle.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+            [self.lTitle layoutIfNeeded];
+            self.lTitle.textColor = [UIColor lightGrayColor];
+            self.lclTitleTop.constant = self.vContent.bounds.size.height * currentPage - self.lcivImageTop.constant - self.lcivImageHeight.constant + roundf((self.contentInsets.top - self.lTitle.bounds.size.height) / 2.0f);
+            self.lcVerticalSpaceBetweenlTitlelSource.constant = 0;
+            self.lSource.text = nil;
+            self.lDate.text = nil;
+            [self layoutHeader:YES];
         }
     }
 }

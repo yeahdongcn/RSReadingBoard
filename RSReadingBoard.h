@@ -12,7 +12,7 @@
 
 @interface RSReadingBoard : UIViewController
 
-#pragma mark -
+#pragma mark - Func
 
 @property (nonatomic) BOOL enableImageDragZoomIn; // default is YES
 
@@ -45,7 +45,7 @@
 /**
  *  Insets which controls the content area exclude the headline image
  */
-@property (nonatomic) UIEdgeInsets contentInsets; // default is UIEdgeInsetsMake(20, 20, 20, 20)
+@property (nonatomic) UIEdgeInsets contentInsets; // default is UIEdgeInsetsMake(50, 20, 0, 20)
 
 /**
  *  Color view width layout constraint
