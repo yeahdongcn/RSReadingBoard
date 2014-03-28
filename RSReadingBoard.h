@@ -45,7 +45,7 @@
 /**
  *  Insets which controls the content area exclude the headline image
  */
-@property (nonatomic) UIEdgeInsets contentInsets; // default is UIEdgeInsetsMake(60, 20, 10, 20)
+@property (nonatomic) UIEdgeInsets contentInsets; // default is UIEdgeInsetsMake(60, 20, 20, 20)
 
 /**
  *  Color view width layout constraint

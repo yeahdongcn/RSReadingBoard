@@ -28,7 +28,8 @@
                       [UIImage imageNamed:@"clip1"],
                       [UIImage imageNamed:@"clip2"]];
     board.article = article;
-    [(UINavigationController *)self.window.rootViewController setViewControllers:@[board]];
+
+    self.window.rootViewController = board;
     
     return YES;
 }

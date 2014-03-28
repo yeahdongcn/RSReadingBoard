@@ -91,7 +91,7 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.contentInsets = UIEdgeInsetsMake(60, 20, 10, 20);
+        self.contentInsets = UIEdgeInsetsMake(60, 20, 20, 20);
         /**
          *  @NOTE: Make sure the image view's content mode is aspect fill
          */
@@ -133,6 +133,15 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     [self.oldConstants setObject:self.lTitle.textColor forKey:[NSString stringWithFormat:@"%@%@", PROPERTY_NAME(self.lTitle), @"Color"]];
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    if (IS_IPAD()) {
+        return UIInterfaceOrientationMaskAllButUpsideDown;
+    } else {
+        return UIInterfaceOrientationMaskPortrait;
+    }
+}
+
 #pragma mark - Setters
 
 - (void)setArticle:(RSArticle *)article
@@ -167,6 +176,9 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
         [self layoutHeader:NO];
         
         // Body
+        for (RSClipView *clipView in self.clipViews) {
+            [clipView removeFromSuperview];
+        }
         [self.clipViews removeAllObjects];
         
         if (article && article.clips) {
@@ -178,17 +190,24 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             }
             NSDictionary *attribute = @{NSFontAttributeName:self.bodyFont};
             CGRect rect = [article.body boundingRectWithSize:CGSizeMake(self.vContent.bounds.size.width - self.contentInsets.left - self.contentInsets.right, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil];
-            NSUInteger pages = rect.size.height / self.vContent.bounds.size.height;
-            if ([article.clips count] <= pages) {
+            NSUInteger pages = rect.size.height / self.vContent.bounds.size.height + ((NSInteger)rect.size.height % (NSInteger)self.vContent.bounds.size.height > 0 ? 1 : 0);
+            NSUInteger numberOfClips = [article.clips count];
+            if (numberOfClips <= pages) {
                 // One clip view at one page
-                for (int i = 0; i < [article.clips count]; i++) {
+                for (int i = 0; i < numberOfClips; i++) {
                     CGRect frame = [self.clipViews[i] frame];
                     frame.origin.x = self.vContent.bounds.size.width - frame.size.width - self.contentInsets.right;
-                    frame.origin.y = self.vContent.bounds.size.height * (i + 1) - frame.size.height - self.contentInsets.bottom;
+                    frame.origin.y = self.vContent.bounds.size.height * ((i + 1) + 1) - frame.size.height - self.contentInsets.bottom;
                     [self.clipViews[i] setFrame:frame];
                 }
             } else {
                 // All clip views at (pages - 1)
+                for (int i = 0; i < numberOfClips; i++) {
+                    CGRect frame = [self.clipViews[i] frame];
+                    frame.origin.x = self.vContent.bounds.size.width - frame.size.width * (i + 1) - self.contentInsets.right * i;
+                    frame.origin.y = self.vContent.bounds.size.height * pages - frame.size.height - self.contentInsets.bottom;
+                    [self.clipViews[i] setFrame:frame];
+                }
             }
         }
         
@@ -218,10 +237,15 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                 
                 NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:frame.size];
                 NSMutableArray *paths = [[NSMutableArray alloc] init];
-                // TODO: NOTWORKING
+                UIView *referenceView = [[UIView alloc] initWithFrame:frame];
+                [self.vContent addSubview:referenceView];
                 for (RSClipView *clipView in self.clipViews) {
-                    [paths addObject:[UIBezierPath bezierPathWithRect:clipView.frame]];
+                    CGRect frame = [referenceView convertRect:clipView.bounds
+                                                     fromView:clipView];
+                    [paths addObject:[UIBezierPath bezierPathWithRect:frame]];
                 }
+                [referenceView removeFromSuperview];
+                
                 [textContainer setExclusionPaths:[NSArray arrayWithArray:paths]];
                 [self.layoutManager addTextContainer:textContainer];
                 
@@ -232,7 +256,7 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                 [textView setFont:self.bodyFont];
                 textView.scrollEnabled = NO;
                 textContainer.size = textView.contentSize;
-                [self.vContent insertSubview:textView atIndex:0];
+                [self.vContent addSubview:textView];
                 
                 lastGlyph = NSMaxRange([self.layoutManager glyphRangeForTextContainer:textContainer]);
                 currentPage++;
@@ -289,9 +313,9 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     } copy];
     
     if (animated) {
-        [UIView animateWithDuration:0.3f animations:^{
+        [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
             layoutIfNeeded();
-        }];
+        } completion:nil];
     } else {
         layoutIfNeeded();
     }

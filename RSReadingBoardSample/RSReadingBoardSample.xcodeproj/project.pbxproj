@@ -15,8 +15,6 @@
 		D0C2E46818E15B2400B784B8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0C2E46618E15B2400B784B8 /* InfoPlist.strings */; };
 		D0C2E46A18E15B2400B784B8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2E46918E15B2400B784B8 /* main.m */; };
 		D0C2E46E18E15B2400B784B8 /* RSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2E46D18E15B2400B784B8 /* RSAppDelegate.m */; };
-		D0C2E47118E15B2400B784B8 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C2E46F18E15B2400B784B8 /* Main_iPhone.storyboard */; };
-		D0C2E47418E15B2400B784B8 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C2E47218E15B2400B784B8 /* Main_iPad.storyboard */; };
 		D0C2E47918E15B2400B784B8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C2E47818E15B2400B784B8 /* Images.xcassets */; };
 		D0C2E4A318E170C200B784B8 /* RSReadingBoard_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2E49F18E170C200B784B8 /* RSReadingBoard_iPad.xib */; };
 		D0C2E4A418E170C200B784B8 /* RSReadingBoard_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2E4A018E170C200B784B8 /* RSReadingBoard_iPhone.xib */; };
@@ -38,8 +36,6 @@
 		D0C2E46B18E15B2400B784B8 /* RSReadingBoardSample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RSReadingBoardSample-Prefix.pch"; sourceTree = "<group>"; };
 		D0C2E46C18E15B2400B784B8 /* RSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSAppDelegate.h; sourceTree = "<group>"; };
 		D0C2E46D18E15B2400B784B8 /* RSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSAppDelegate.m; sourceTree = "<group>"; };
-		D0C2E47018E15B2400B784B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		D0C2E47318E15B2400B784B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		D0C2E47818E15B2400B784B8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D0C2E47F18E15B2400B784B8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D0C2E49F18E170C200B784B8 /* RSReadingBoard_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RSReadingBoard_iPad.xib; path = ../RSReadingBoard_iPad.xib; sourceTree = "<group>"; };
@@ -107,8 +103,6 @@
 			children = (
 				D0C2E46C18E15B2400B784B8 /* RSAppDelegate.h */,
 				D0C2E46D18E15B2400B784B8 /* RSAppDelegate.m */,
-				D0C2E46F18E15B2400B784B8 /* Main_iPhone.storyboard */,
-				D0C2E47218E15B2400B784B8 /* Main_iPad.storyboard */,
 				D0C2E47818E15B2400B784B8 /* Images.xcassets */,
 				D0C2E46418E15B2400B784B8 /* Supporting Files */,
 			);
@@ -194,11 +188,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0C2E47418E15B2400B784B8 /* Main_iPad.storyboard in Resources */,
 				D0C2E4A418E170C200B784B8 /* RSReadingBoard_iPhone.xib in Resources */,
 				D080275C18E2CFD70095F1FB /* Body.txt in Resources */,
 				D0C2E47918E15B2400B784B8 /* Images.xcassets in Resources */,
-				D0C2E47118E15B2400B784B8 /* Main_iPhone.storyboard in Resources */,
 				D0C2E4A318E170C200B784B8 /* RSReadingBoard_iPad.xib in Resources */,
 				D0C2E46818E15B2400B784B8 /* InfoPlist.strings in Resources */,
 			);
@@ -228,22 +220,6 @@
 				D0C2E46718E15B2400B784B8 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		D0C2E46F18E15B2400B784B8 /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D0C2E47018E15B2400B784B8 /* Base */,
-			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		D0C2E47218E15B2400B784B8 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D0C2E47318E15B2400B784B8 /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
