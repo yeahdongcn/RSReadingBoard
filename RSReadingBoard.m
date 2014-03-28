@@ -19,11 +19,14 @@
 #define IS_IPAD() (false)
 #endif
 
-@interface RSReadingBoard ()
+#define PROPERTY_NAME(property) [[(@""#property) componentsSeparatedByString:@"."] lastObject]
+
+@interface RSReadingBoard () <UIScrollViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIScrollView *vContent;
 
 @property (nonatomic, weak) IBOutlet UIImageView  *ivImage;
+@property (nonatomic) CGRect ivImageFrame;
 
 @property (nonatomic, weak) IBOutlet UIView       *vColor;
 
@@ -41,11 +44,15 @@
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageTrailing;
 
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageTop;
+
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageBottom;
 
 @property (nonatomic, strong) NSLayoutManager *layoutManager;
 
 @property (nonatomic, strong) NSTextStorage   *textStorage;
+
+@property (nonatomic, strong) NSMutableDictionary *oldConstants;
 
 @end
 
@@ -68,14 +75,19 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     return [[bundle loadNibNamed:name owner:nil options:nil] firstObject];
 }
 
+#pragma mark - NSObject
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.contentInsets = UIEdgeInsetsMake(20, 20, 20, 20);
+        self.enableImageDragZoomIn = YES;
     }
     return self;
 }
+
+#pragma mark - UIViewController
 
 - (void)viewDidLoad
 {
@@ -90,7 +102,17 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
      *  @NOTE: Enable content view's paging in xib or here
      */
     self.vContent.pagingEnabled = YES;
+    
+    /**
+     *  @NOTE: Set content view's delegate in xib or here
+     */
+    self.vContent.delegate = self;
+    
+    [self.oldConstants setObject:@(self.lcivImageTop.constant) forKey:PROPERTY_NAME(self.lcivImageTop)];
+    [self.oldConstants setObject:@(self.lcivImageHeight.constant) forKey:PROPERTY_NAME(self.lcivImageHeight)];
 }
+
+#pragma mark - Setters
 
 - (void)setArticle:(RSArticle *)article
 {
@@ -168,6 +190,33 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
         currentPage++;
     }
     self.lcivImageBottom.constant = self.vContent.bounds.size.height * currentPage - self.lcivImageHeight.constant;
+}
+
+- (NSMutableDictionary *)oldConstants
+{
+    if (!_oldConstants) {
+        _oldConstants = [[NSMutableDictionary alloc] init];
+    }
+    return _oldConstants;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView == self.vContent) {
+        if (self.enableImageDragZoomIn) {
+            CGFloat yOffset = scrollView.contentOffset.y;
+            if (yOffset < 0) {
+                self.lcivImageTop.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcivImageTop)] floatValue] + yOffset;
+                self.lcivImageHeight.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcivImageHeight)] floatValue] - yOffset;
+            } else {
+                self.lcivImageTop.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcivImageTop)] floatValue];
+                self.lcivImageHeight.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcivImageHeight)] floatValue];
+            }
+            [self.ivImage layoutIfNeeded];
+        }
+    }
 }
 
 @end

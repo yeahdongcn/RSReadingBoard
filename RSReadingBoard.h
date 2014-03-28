@@ -12,6 +12,12 @@
 
 @interface RSReadingBoard : UIViewController
 
+#pragma mark -
+
+@property (nonatomic) BOOL enableImageDragZoomIn; // default is YES
+
+#pragma mark - Appearance
+
 /**
  *  Body text view background color
  */
@@ -27,10 +33,14 @@
  */
 @property (nonatomic, strong) UIFont  *bodyFont; // default is body font
 
+#pragma mark - Model
+
 /**
  *  Model object
  */
 @property (nonatomic, strong) RSArticle *article;
+
+#pragma mark - Layout
 
 /**
  *  Insets which controls the content area exclude the headline image
@@ -66,6 +76,8 @@
  *  Headline image height layout constraint
  */
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageHeight;
+
+#pragma mark - Quick creation
 
 /**
  *  Using default xib and bundle for initializing a reading board

@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OZ7-Wz-qpg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OZ7-Wz-qpg">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -76,6 +76,9 @@
                             <constraint firstItem="f7s-Lt-EiU" firstAttribute="top" secondItem="Ia8-0h-8cJ" secondAttribute="top" id="wLk-pA-9d2"/>
                             <constraint firstItem="f7s-Lt-EiU" firstAttribute="trailing" secondItem="gIh-eb-TIm" secondAttribute="trailing" id="yeD-03-n16"/>
                         </constraints>
+                        <connections>
+                            <outlet property="delegate" destination="aok-en-AOi" id="2BL-xV-jPS"/>
+                        </connections>
                     </scrollView>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -101,6 +104,7 @@
                 <outlet property="lchorizontalSpaceBetweenvColorlTitle" destination="83g-7R-BlB" id="qSC-Ui-6Hl"/>
                 <outlet property="lcivImageBottom" destination="7lJ-23-JiK" id="sEQ-ea-lCe"/>
                 <outlet property="lcivImageHeight" destination="VqT-y7-hxL" id="Gch-bi-rri"/>
+                <outlet property="lcivImageTop" destination="feg-1j-6ke" id="cJS-m9-zAG"/>
                 <outlet property="lcivImageTrailing" destination="Qil-FX-3mp" id="oAt-UB-S6X"/>
                 <outlet property="lcivImageWidth" destination="X0O-dR-8Eg" id="GRR-AK-Kkb"/>
                 <outlet property="lclTitleTop" destination="IKh-1y-70f" id="WBa-MF-Mgw"/>
