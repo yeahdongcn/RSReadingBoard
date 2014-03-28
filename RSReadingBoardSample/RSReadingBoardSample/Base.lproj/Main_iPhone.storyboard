@@ -7,7 +7,7 @@
         <!--Navigation Controller-->
         <scene sceneID="WPO-Jl-bGa">
             <objects>
-                <navigationController definesPresentationContext="YES" id="edo-rQ-O3o" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="edo-rQ-O3o" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zoA-We-PS4">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

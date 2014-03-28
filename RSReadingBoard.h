@@ -12,19 +12,35 @@
 
 @interface RSReadingBoard : UIViewController
 
+/**
+ *  Model object
+ */
 @property (nonatomic, strong) RSArticle *article;
 
+/**
+ *  Insets which controls the content area exclude the headline image
+ */
 @property (nonatomic) UIEdgeInsets contentInsets;
 
-
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcVerticalSpace;
-
+/**
+ *  Horizontal space between source label and date label
+ */
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *lchorizontalSpace;
 
+/**
+ *  Vertical space between title label and source label & date label
+ */
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcVerticalSpace;
+
+/**
+ *  Headline image width layout constraint
+ */
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageWidth;
 
+/**
+ *  Headline image height layout constraint
+ */
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcivImageHeight;
-
 
 /**
  *  Using default xib and bundle for initializing a reading board
