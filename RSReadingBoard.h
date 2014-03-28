@@ -13,6 +13,21 @@
 @interface RSReadingBoard : UIViewController
 
 /**
+ *  Body text view background color
+ */
+@property (nonatomic, strong) UIColor *bodyBackgroundColor; // default is clear color
+
+/**
+ *  Body text view text color
+ */
+@property (nonatomic, strong) UIColor *bodyTextColor; // default is dark gray color
+
+/**
+ *  Body text view font
+ */
+@property (nonatomic, strong) UIFont  *bodyFont; // default is body font
+
+/**
  *  Model object
  */
 @property (nonatomic, strong) RSArticle *article;
@@ -20,17 +35,27 @@
 /**
  *  Insets which controls the content area exclude the headline image
  */
-@property (nonatomic) UIEdgeInsets contentInsets;
+@property (nonatomic) UIEdgeInsets contentInsets; // default is UIEdgeInsetsMake(20, 20, 20, 20)
+
+/**
+ *  Color view width layout constraint
+ */
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcvColorWidth; // default is 5
+
+/**
+ *  Horizontal space between color view and title label
+ */
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lchorizontalSpaceBetweenvColorlTitle; // default is 5
 
 /**
  *  Horizontal space between source label and date label
  */
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lchorizontalSpace;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lchorizontalSpaceBetweenlSourcelDate; // default is 10
 
 /**
  *  Vertical space between title label and source label & date label
  */
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcVerticalSpace;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *lcVerticalSpaceBetweenlTitlelSource; // default is 10
 
 /**
  *  Headline image width layout constraint

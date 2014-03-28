@@ -10,6 +10,8 @@
 
 @interface RSArticle : NSObject
 
+@property (nonatomic, strong) UIColor  *color;
+
 @property (nonatomic, strong) UIImage  *image;
 
 @property (nonatomic, strong) NSString *title;

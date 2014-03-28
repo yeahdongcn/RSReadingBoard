@@ -23,6 +23,7 @@
     article.source = @"By Sophie Brown, CNN";
     article.date = @"March 25, 2014 -- Updated 1129 GMT (1929 HKT)";
     article.body = [NSString stringWithContentsOfFile:[[[NSBundle mainBundle] URLForResource:@"Body" withExtension:@"txt"] path] encoding:NSUTF8StringEncoding error:nil];
+    article.color = [UIColor blackColor];
     article.clips = @[[UIImage imageNamed:@"clip0"],
                       [UIImage imageNamed:@"clip1"],
                       [UIImage imageNamed:@"clip2"]];

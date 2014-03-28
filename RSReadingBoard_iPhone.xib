@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Na1-pp-U3U">
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Na1-pp-U3U">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -28,30 +28,32 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="McR-ar-iMp">
-                                <rect key="frame" x="10" y="158" width="5" height="43"/>
+                                <rect key="frame" x="20" y="170" width="5" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="5" id="WIQ-ro-yXN"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a title" lineBreakMode="tailTruncation" numberOfLines="99" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="gIh-eb-TIm">
-                                <rect key="frame" x="20" y="158" width="280" height="20"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a title" lineBreakMode="tailTruncation" numberOfLines="99" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="270" translatesAutoresizingMaskIntoConstraints="NO" id="gIh-eb-TIm">
+                                <rect key="frame" x="30" y="170" width="270" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Source" lineBreakMode="tailTruncation" numberOfLines="99" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="Ia8-0h-8cJ">
-                                <rect key="frame" x="20" y="186" width="130" height="15"/>
+                                <rect key="frame" x="30" y="200" width="130" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" numberOfLines="99" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="f7s-Lt-EiU">
-                                <rect key="frame" x="170" y="186" width="130" height="15"/>
+                                <rect key="frame" x="170" y="200" width="130" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -61,16 +63,16 @@
                             <constraint firstItem="gIh-eb-TIm" firstAttribute="trailing" secondItem="OZ7-Wz-qpg" secondAttribute="trailing" constant="-20" id="8DD-Bp-nWI"/>
                             <constraint firstItem="f7s-Lt-EiU" firstAttribute="width" secondItem="Ia8-0h-8cJ" secondAttribute="width" id="BTo-dY-02O"/>
                             <constraint firstItem="gIh-eb-TIm" firstAttribute="top" secondItem="McR-ar-iMp" secondAttribute="top" id="ChQ-pL-AkQ"/>
-                            <constraint firstItem="f7s-Lt-EiU" firstAttribute="leading" secondItem="Ia8-0h-8cJ" secondAttribute="trailing" constant="20" id="HSJ-u9-ry8"/>
-                            <constraint firstItem="gIh-eb-TIm" firstAttribute="top" secondItem="OZ7-Wz-qpg" secondAttribute="bottom" constant="8" symbolic="YES" id="IKh-1y-70f"/>
+                            <constraint firstItem="f7s-Lt-EiU" firstAttribute="leading" secondItem="Ia8-0h-8cJ" secondAttribute="trailing" constant="10" id="HSJ-u9-ry8"/>
+                            <constraint firstItem="gIh-eb-TIm" firstAttribute="top" secondItem="OZ7-Wz-qpg" secondAttribute="bottom" constant="20" id="IKh-1y-70f"/>
                             <constraint firstAttribute="trailing" secondItem="OZ7-Wz-qpg" secondAttribute="trailing" id="Qil-FX-3mp"/>
                             <constraint firstItem="Ia8-0h-8cJ" firstAttribute="bottom" secondItem="f7s-Lt-EiU" secondAttribute="bottom" id="ZvZ-aL-rdT"/>
                             <constraint firstItem="McR-ar-iMp" firstAttribute="bottom" secondItem="Ia8-0h-8cJ" secondAttribute="bottom" id="axn-BO-b2p"/>
                             <constraint firstItem="Ia8-0h-8cJ" firstAttribute="leading" secondItem="gIh-eb-TIm" secondAttribute="leading" id="f3f-De-bII"/>
                             <constraint firstItem="OZ7-Wz-qpg" firstAttribute="top" secondItem="Na1-pp-U3U" secondAttribute="top" id="feg-1j-6ke"/>
-                            <constraint firstItem="Ia8-0h-8cJ" firstAttribute="top" secondItem="gIh-eb-TIm" secondAttribute="bottom" constant="8" symbolic="YES" id="lKR-RQ-RVQ"/>
+                            <constraint firstItem="Ia8-0h-8cJ" firstAttribute="top" secondItem="gIh-eb-TIm" secondAttribute="bottom" constant="10" id="lKR-RQ-RVQ"/>
                             <constraint firstItem="OZ7-Wz-qpg" firstAttribute="leading" secondItem="Na1-pp-U3U" secondAttribute="leading" id="mQb-Sr-KZk"/>
-                            <constraint firstItem="gIh-eb-TIm" firstAttribute="leading" secondItem="Na1-pp-U3U" secondAttribute="leading" constant="20" id="sBj-Xo-t3S"/>
+                            <constraint firstItem="McR-ar-iMp" firstAttribute="leading" secondItem="Na1-pp-U3U" secondAttribute="leading" constant="20" id="oSM-Wp-yFd"/>
                             <constraint firstItem="f7s-Lt-EiU" firstAttribute="top" secondItem="Ia8-0h-8cJ" secondAttribute="top" id="wLk-pA-9d2"/>
                             <constraint firstItem="f7s-Lt-EiU" firstAttribute="trailing" secondItem="gIh-eb-TIm" secondAttribute="trailing" id="yeD-03-n16"/>
                         </constraints>
@@ -94,14 +96,17 @@
                 <outlet property="lDate" destination="f7s-Lt-EiU" id="A70-ng-jHI"/>
                 <outlet property="lSource" destination="Ia8-0h-8cJ" id="TJb-J8-Vdf"/>
                 <outlet property="lTitle" destination="gIh-eb-TIm" id="di2-eT-7FK"/>
-                <outlet property="lcVerticalSpace" destination="lKR-RQ-RVQ" id="TIU-Nz-78g"/>
-                <outlet property="lchorizontalSpace" destination="HSJ-u9-ry8" id="7bj-dJ-NCb"/>
+                <outlet property="lcVerticalSpaceBetweenlTitlelSource" destination="lKR-RQ-RVQ" id="hOa-0h-EOn"/>
+                <outlet property="lchorizontalSpaceBetweenlSourcelDate" destination="HSJ-u9-ry8" id="mgd-1g-phv"/>
+                <outlet property="lchorizontalSpaceBetweenvColorlTitle" destination="83g-7R-BlB" id="qSC-Ui-6Hl"/>
                 <outlet property="lcivImageBottom" destination="7lJ-23-JiK" id="sEQ-ea-lCe"/>
                 <outlet property="lcivImageHeight" destination="VqT-y7-hxL" id="Gch-bi-rri"/>
                 <outlet property="lcivImageTrailing" destination="Qil-FX-3mp" id="oAt-UB-S6X"/>
                 <outlet property="lcivImageWidth" destination="X0O-dR-8Eg" id="GRR-AK-Kkb"/>
                 <outlet property="lclTitleTop" destination="IKh-1y-70f" id="WBa-MF-Mgw"/>
                 <outlet property="lclTitleTrailing" destination="8DD-Bp-nWI" id="DsW-rD-7CV"/>
+                <outlet property="lcvColorLeading" destination="oSM-Wp-yFd" id="juG-B1-sdd"/>
+                <outlet property="lcvColorWidth" destination="WIQ-ro-yXN" id="auM-m9-sMb"/>
                 <outlet property="vColor" destination="McR-ar-iMp" id="bjr-sS-JUD"/>
                 <outlet property="vContent" destination="Na1-pp-U3U" id="Gya-13-0Ng"/>
             </connections>
