@@ -1,6 +1,7 @@
 RSReadingBoard
 ==============
-WIP
+
+![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/1.png)
 
 #持续关注马航事件。
 
