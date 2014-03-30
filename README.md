@@ -1,11 +1,7 @@
 RSReadingBoard
 ==============
 
-![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/1.png?raw=true)
-
-![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/2.png?raw=true)
-
-![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/3.png?raw=true)
+![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/1.png?raw=true)![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/2.png?raw=true)![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/3.png?raw=true)
 
 #持续关注马航事件。
 
