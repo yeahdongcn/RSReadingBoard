@@ -12,8 +12,11 @@
 
 @interface RSReadingBoard : UIViewController
 
-#pragma mark - Func
+#pragma mark - Function
 
+/**
+ *  Whether enable drag to zoom in
+ */
 @property (nonatomic) BOOL enableImageDragZoomIn; // default is YES
 
 #pragma mark - Appearance
