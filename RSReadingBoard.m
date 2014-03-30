@@ -263,7 +263,6 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             }
             self.lcivImageBottom.constant = self.vContent.bounds.size.height * currentPage - self.lcivImageHeight.constant;
         }
-        
     });
 }
 
