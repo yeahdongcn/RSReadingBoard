@@ -1,7 +1,7 @@
 RSReadingBoard
 ==============
 
-![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/1.png?raw=true =100x20)
+![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/1.png?raw=true&100x20)
 
 ![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/2.png?raw=true)
 
