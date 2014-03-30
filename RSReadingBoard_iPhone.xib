@@ -85,8 +85,8 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Na1-pp-U3U" secondAttribute="trailing" id="4FX-6h-dsl"/>
                     <constraint firstItem="Na1-pp-U3U" firstAttribute="leading" secondItem="xhm-Ar-SC5" secondAttribute="leading" id="RcW-8A-blX"/>
+                    <constraint firstItem="FJH-ON-6Dy" firstAttribute="top" secondItem="Na1-pp-U3U" secondAttribute="bottom" id="fMB-D2-kXr"/>
                     <constraint firstItem="Na1-pp-U3U" firstAttribute="top" secondItem="hd0-aT-n9w" secondAttribute="bottom" id="k2T-a7-1YX"/>
-                    <constraint firstAttribute="bottom" secondItem="Na1-pp-U3U" secondAttribute="bottom" id="kXH-yX-fKX"/>
                 </constraints>
             </view>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
