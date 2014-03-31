@@ -28,7 +28,7 @@
                     <constraint firstItem="Rm2-XR-gZx" firstAttribute="top" secondItem="Kuw-VS-XRb" secondAttribute="bottom" id="wZO-PG-u8F"/>
                 </constraints>
             </view>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>

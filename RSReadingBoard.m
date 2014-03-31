@@ -91,10 +91,9 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
+
         self.contentInsets = UIEdgeInsetsMake(60, 20, 20, 20);
-        /**
-         *  @NOTE: Make sure the image view's content mode is aspect fill
-         */
+        
         self.enableImageDragZoomIn = YES;
         
         self.bodyBackgroundColor = [UIColor clearColor];
@@ -116,6 +115,11 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     /**
+     *  @NOTE: Make sure the image view's content mode is aspect fill, set it in xib or here
+     */
+    self.ivImage.contentMode = UIViewContentModeScaleAspectFill;
+    
+    /**
      *  @NOTE: Enable content view's paging in xib or here
      */
     self.vContent.pagingEnabled = YES;
@@ -129,8 +133,12 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     [self.oldConstants setObject:@(self.lcivImageHeight.constant) forKey:PROPERTY_NAME(self.lcivImageHeight)];
     [self.oldConstants setObject:@(self.lclTitleTop.constant) forKey:PROPERTY_NAME(self.lclTitleTop)];
     [self.oldConstants setObject:@(self.lcVerticalSpaceBetweenlTitlelSource.constant) forKey:PROPERTY_NAME(self.lcVerticalSpaceBetweenlTitlelSource)];
-    [self.oldConstants setObject:self.lTitle.font forKey:[NSString stringWithFormat:@"%@%@", PROPERTY_NAME(self.lTitle), @"Font"]];
-    [self.oldConstants setObject:self.lTitle.textColor forKey:[NSString stringWithFormat:@"%@%@", PROPERTY_NAME(self.lTitle), @"Color"]];
+    if (self.lTitle.font) {
+        [self.oldConstants setObject:self.lTitle.font forKey:[NSString stringWithFormat:@"%@%@", PROPERTY_NAME(self.lTitle), @"Font"]];
+    }
+    if (self.lTitle.textColor) {
+        [self.oldConstants setObject:self.lTitle.textColor forKey:[NSString stringWithFormat:@"%@%@", PROPERTY_NAME(self.lTitle), @"Color"]];
+    }
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -204,7 +212,7 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                 // All clip views at (pages - 1)
                 for (int i = 0; i < numberOfClips; i++) {
                     CGRect frame = [self.clipViews[i] frame];
-                    frame.origin.x = self.vContent.bounds.size.width - frame.size.width * (i + 1) - self.contentInsets.right * i;
+                    frame.origin.x = self.vContent.bounds.size.width - frame.size.width * (i + 1) - self.contentInsets.right * (i + 1);
                     frame.origin.y = self.vContent.bounds.size.height * pages - frame.size.height - self.contentInsets.bottom;
                     [self.clipViews[i] setFrame:frame];
                 }
@@ -232,7 +240,7 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                 if (currentPage == 0) {
                     CGFloat δ = self.vColor.frame.origin.y + self.vColor.bounds.size.height;
                     frame.origin.y = δ;
-                    frame.size.height = self.vContent.bounds.size.height - δ;
+                    frame.size.height = self.vContent.bounds.size.height - δ - self.contentInsets.bottom;
                 }
                 
                 NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:frame.size];
@@ -255,6 +263,7 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                 [textView setTextColor:self.bodyTextColor];
                 [textView setFont:self.bodyFont];
                 textView.scrollEnabled = NO;
+                textView.editable = NO;
                 textContainer.size = textView.contentSize;
                 [self.vContent addSubview:textView];
                 
