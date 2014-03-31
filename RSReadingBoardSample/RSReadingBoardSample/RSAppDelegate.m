@@ -27,6 +27,7 @@
     article.clips = @[[UIImage imageNamed:@"clip0"],
                       [UIImage imageNamed:@"clip1"],
                       [UIImage imageNamed:@"clip2"]];
+    article.body = @"";
     board.article = article;
 
     self.window.rootViewController = board;

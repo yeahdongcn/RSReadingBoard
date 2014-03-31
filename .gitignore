@@ -2,3 +2,9 @@
 RSReadingBoardSample/RSReadingBoardSample.xcodeproj/xcuserdata/*
 
 RSReadingBoardSample/RSReadingBoardSample.xcodeproj/project.xcworkspace/xcuserdata/*
+
+RSReadingBoardSample/Podfile.lock
+
+RSReadingBoardSample/Pods/*
+
+RSReadingBoardSample/RSReadingBoardSample.xcworkspace/*

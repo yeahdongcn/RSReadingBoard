@@ -64,12 +64,44 @@
 
 @property (nonatomic, strong) NSMutableArray *clipViews;
 
+@property (nonatomic, strong) NSArray *clipViewsFrames;
+
 @end
 
 @implementation RSReadingBoard
 
 static NSString *const kReadingBoardNib_iPhone = @"RSReadingBoard_iPhone";
 static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
+
+#pragma mark - Private methods
+
+- (void)tap:(UITapGestureRecognizer *)tap
+{
+    RSClipView *tappedClipView = (RSClipView *)tap.view;
+    NSUInteger currentPage = roundf(self.vContent.contentOffset.y / (self.vContent.frame.size.height));
+    CGPoint center = CGPointMake(self.vContent.center.x, self.vContent.center.y + self.vContent.bounds.size.height * currentPage);
+    [UIView animateWithDuration:0.3f animations:^{
+        if (CGPointEqualToPoint(center, tappedClipView.center)) {
+            tappedClipView.frame = [self.clipViewsFrames[tappedClipView.tag] CGRectValue];
+        } else {
+            tappedClipView.center = center;
+            [self.vContent bringSubviewToFront:tappedClipView];
+        }
+    }];
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        [self.clipViews enumerateObjectsUsingBlock:^(RSClipView *clipView, NSUInteger idx, BOOL *stop) {
+            if (clipView != tappedClipView && CGPointEqualToPoint(center, clipView.center)) {
+                clipView.frame = [self.clipViewsFrames[clipView.tag] CGRectValue];
+                if (!IS_IPAD()) {
+                    [self.vContent sendSubviewToBack:clipView];
+                }
+            }
+        }];
+    }];
+}
+
+#pragma mark - Quick creation
 
 + (instancetype)board
 {
@@ -91,7 +123,7 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-
+        
         self.contentInsets = UIEdgeInsetsMake(60, 20, 20, 20);
         
         self.enableImageDragZoomIn = YES;
@@ -190,12 +222,17 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
         [self.clipViews removeAllObjects];
         
         if (article && article.clips) {
-            for (UIImage *clip in article.clips) {
+            [article.clips enumerateObjectsUsingBlock:^(UIImage *clip, NSUInteger idx, BOOL *stop) {
                 RSClipView *clipView = [[RSClipView alloc] initWithImage:clip];
+                clipView.tag = idx;
+                clipView.userInteractionEnabled = YES;
                 [clipView sizeToFit];
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+                [clipView addGestureRecognizer:tap];
                 [self.clipViews addObject:clipView];
                 [self.vContent addSubview:clipView];
-            }
+            }];
+            
             NSDictionary *attribute = @{NSFontAttributeName:self.bodyFont};
             CGRect rect = [article.body boundingRectWithSize:CGSizeMake(self.vContent.bounds.size.width - self.contentInsets.left - self.contentInsets.right, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil];
             NSUInteger pages = rect.size.height / self.vContent.bounds.size.height + ((NSInteger)rect.size.height % (NSInteger)self.vContent.bounds.size.height > 0 ? 1 : 0);
@@ -212,11 +249,20 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                 // All clip views at (pages - 1)
                 for (int i = 0; i < numberOfClips; i++) {
                     CGRect frame = [self.clipViews[i] frame];
-                    frame.origin.x = self.vContent.bounds.size.width - frame.size.width * (i + 1) - self.contentInsets.right * (i + 1);
+                    if (IS_IPAD()) {
+                        frame.origin.x = self.vContent.bounds.size.width - frame.size.width * (i + 1) - self.contentInsets.right * (i + 1);
+                    } else {
+                        frame.origin.x = self.vContent.bounds.size.width - frame.size.width - self.contentInsets.right;
+                    }
                     frame.origin.y = self.vContent.bounds.size.height * pages - frame.size.height - self.contentInsets.bottom;
                     [self.clipViews[i] setFrame:frame];
                 }
             }
+            NSMutableArray *clipViewsFrames = [[NSMutableArray alloc] initWithCapacity:numberOfClips];
+            for (int i = 0; i < numberOfClips; i++) {
+                [clipViewsFrames addObject:[NSValue valueWithCGRect:[self.clipViews[i] frame]]];
+            }
+            self.clipViewsFrames = [NSArray arrayWithArray:clipViewsFrames];
         }
         
         for (UIView *subview in self.vContent.subviews) {
@@ -269,6 +315,9 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                 
                 lastGlyph = NSMaxRange([self.layoutManager glyphRangeForTextContainer:textContainer]);
                 currentPage++;
+            }
+            for (RSClipView *clipView in self.clipViews) {
+                [self.vContent bringSubviewToFront:clipView];
             }
             self.lcivImageBottom.constant = self.vContent.bounds.size.height * currentPage - self.lcivImageHeight.constant;
         }
@@ -351,6 +400,10 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             self.lSource.text = nil;
             self.lDate.text = nil;
             [self layoutHeader:YES];
+        }
+        
+        for (RSClipView *clipView in self.clipViews) {
+            clipView.frame = [self.clipViewsFrames[clipView.tag] CGRectValue];
         }
     }
 }

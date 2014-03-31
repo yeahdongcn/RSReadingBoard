@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D080275C18E2CFD70095F1FB /* Body.txt in Resources */ = {isa = PBXBuildFile; fileRef = D080275B18E2CFD70095F1FB /* Body.txt */; };
-		D08027A718E512E50095F1FB /* UIImage+Fitness.m in Sources */ = {isa = PBXBuildFile; fileRef = D08027A618E512E50095F1FB /* UIImage+Fitness.m */; };
+		D08897C318E9126100CF14D5 /* UIImage+Fitness.m in Sources */ = {isa = PBXBuildFile; fileRef = D08897C218E9126100CF14D5 /* UIImage+Fitness.m */; };
 		D0C2E45E18E15B2400B784B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C2E45D18E15B2400B784B8 /* Foundation.framework */; };
 		D0C2E46018E15B2400B784B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C2E45F18E15B2400B784B8 /* CoreGraphics.framework */; };
 		D0C2E46218E15B2400B784B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C2E46118E15B2400B784B8 /* UIKit.framework */; };
@@ -24,8 +24,8 @@
 
 /* Begin PBXFileReference section */
 		D080275B18E2CFD70095F1FB /* Body.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Body.txt; sourceTree = "<group>"; };
-		D08027A518E512E50095F1FB /* UIImage+Fitness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Fitness.h"; sourceTree = "<group>"; };
-		D08027A618E512E50095F1FB /* UIImage+Fitness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Fitness.m"; sourceTree = "<group>"; };
+		D08897C118E9126100CF14D5 /* UIImage+Fitness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Fitness.h"; sourceTree = "<group>"; };
+		D08897C218E9126100CF14D5 /* UIImage+Fitness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Fitness.m"; sourceTree = "<group>"; };
 		D0C2E45A18E15B2400B784B8 /* RSReadingBoardSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSReadingBoardSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C2E45D18E15B2400B784B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0C2E45F18E15B2400B784B8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -60,13 +60,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D08027A418E512BD0095F1FB /* RSImageFitness */ = {
+		D08897C018E9126100CF14D5 /* RSImageFitness */ = {
 			isa = PBXGroup;
 			children = (
-				D08027A518E512E50095F1FB /* UIImage+Fitness.h */,
-				D08027A618E512E50095F1FB /* UIImage+Fitness.m */,
+				D08897C118E9126100CF14D5 /* UIImage+Fitness.h */,
+				D08897C218E9126100CF14D5 /* UIImage+Fitness.m */,
 			);
 			name = RSImageFitness;
+			path = ../RSImageFitness;
 			sourceTree = "<group>";
 		};
 		D0C2E45118E15B2400B784B8 = {
@@ -124,7 +125,7 @@
 		D0C2E49518E15BFB00B784B8 /* RSReadingBoard */ = {
 			isa = PBXGroup;
 			children = (
-				D08027A418E512BD0095F1FB /* RSImageFitness */,
+				D08897C018E9126100CF14D5 /* RSImageFitness */,
 				D0C2E49F18E170C200B784B8 /* RSReadingBoard_iPad.xib */,
 				D0C2E4A018E170C200B784B8 /* RSReadingBoard_iPhone.xib */,
 				D0C2E4A118E170C200B784B8 /* RSReadingBoard.h */,
@@ -203,7 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D08027A718E512E50095F1FB /* UIImage+Fitness.m in Sources */,
+				D08897C318E9126100CF14D5 /* UIImage+Fitness.m in Sources */,
 				D0C2E46A18E15B2400B784B8 /* main.m in Sources */,
 				D0C2E46E18E15B2400B784B8 /* RSAppDelegate.m in Sources */,
 				D0C2E4A518E170C200B784B8 /* RSReadingBoard.m in Sources */,
