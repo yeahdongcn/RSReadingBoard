@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>AF5060D2-B3A6-4E2E-B7CE-A1B5ABB0F067</string>
+	<string>BD347749-70A8-4027-8455-D197B03EB5E2</string>
 	<key>IDESourceControlProjectName</key>
 	<string>RSReadingBoardSample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>55E3E579-EE99-4809-A0B0-98A2A09A2149</key>
-		<string>https://github.com/yeahdongcn/RSReadingBoard.git</string>
+		<key>4AF81FA6-2133-454E-B28A-364CAC56958E</key>
+		<string>https://github.com/wesleysui/RSReadingBoard.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>RSReadingBoardSample/RSReadingBoardSample.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>55E3E579-EE99-4809-A0B0-98A2A09A2149</key>
+		<key>4AF81FA6-2133-454E-B28A-364CAC56958E</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/yeahdongcn/RSReadingBoard.git</string>
+	<string>https://github.com/wesleysui/RSReadingBoard.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>55E3E579-EE99-4809-A0B0-98A2A09A2149</string>
+	<string>4AF81FA6-2133-454E-B28A-364CAC56958E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>55E3E579-EE99-4809-A0B0-98A2A09A2149</string>
+			<string>4AF81FA6-2133-454E-B28A-364CAC56958E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>RSReadingBoard</string>
 		</dict>
