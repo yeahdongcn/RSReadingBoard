@@ -210,6 +210,11 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+    self.lclTitleTop.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTop)] floatValue];
+    self.lcVerticalSpaceBetweenlTitlelSource.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcVerticalSpaceBetweenlTitlelSource)] floatValue];
+    self.lclTitleTrailing.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTrailing)] floatValue];
+    self.lcvColorLeading.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcvColorLeading)] floatValue];
+    
     self.lcivImageBottom.constant = 0;
     self.lcivImageTrailing.constant = 0;
     
@@ -275,8 +280,13 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                 // One clip view at one page
                 for (int i = 0; i < numberOfClips; i++) {
                     CGRect frame = [self.clipViews[i] frame];
-                    frame.origin.x = self.vContent.bounds.size.width - frame.size.width - self.contentInsets.right;
-                    frame.origin.y = self.vContent.bounds.size.height * ((i + 1) + 1) - frame.size.height - self.contentInsets.bottom;
+                    if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait) {
+                        frame.origin.x = self.vContent.bounds.size.width - frame.size.width - self.contentInsets.right;
+                        frame.origin.y = self.vContent.bounds.size.height * ((i + 1) + 1) - frame.size.height - self.contentInsets.bottom;
+                    } else {
+                        frame.origin.x = self.vContent.bounds.size.width * ((i + 1) + 1) - frame.size.width - self.contentInsets.right;
+                        frame.origin.y = self.vContent.bounds.size.height - frame.size.height - self.contentInsets.bottom;
+                    }
                     [self.clipViews[i] setFrame:frame];
                 }
             } else {
@@ -284,11 +294,19 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                 for (int i = 0; i < numberOfClips; i++) {
                     CGRect frame = [self.clipViews[i] frame];
                     if (IS_IPAD()) {
-                        frame.origin.x = self.vContent.bounds.size.width - frame.size.width * (i + 1) - self.contentInsets.right * (i + 1);
+                        if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait) {
+                            frame.origin.x = self.vContent.bounds.size.width - frame.size.width * (i + 1) - self.contentInsets.right * (i + 1);
+                        } else {
+                            frame.origin.x = self.vContent.bounds.size.width *pages - frame.size.width * (i + 1) - self.contentInsets.right * (i + 1);
+                        }
                     } else {
                         frame.origin.x = self.vContent.bounds.size.width - frame.size.width - self.contentInsets.right;
                     }
-                    frame.origin.y = self.vContent.bounds.size.height * pages - frame.size.height - self.contentInsets.bottom;
+                    if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait) {
+                        frame.origin.y = self.vContent.bounds.size.height * pages - frame.size.height - self.contentInsets.bottom;
+                    } else {
+                        frame.origin.y = self.vContent.bounds.size.height - frame.size.height - self.contentInsets.bottom;
+                    }
                     [self.clipViews[i] setFrame:frame];
                 }
             }
