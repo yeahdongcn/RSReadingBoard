@@ -29,7 +29,9 @@
                       [UIImage imageNamed:@"clip2"]];
     board.article = article;
 
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = board;
+    [self.window makeKeyAndVisible];
     
     return YES;
 }
