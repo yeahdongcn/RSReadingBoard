@@ -101,8 +101,15 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 - (void)tap:(UITapGestureRecognizer *)tap
 {
     RSClipView *tappedClipView = (RSClipView *)tap.view;
-    NSUInteger currentPage = roundf(self.vContent.contentOffset.y / (self.vContent.frame.size.height));
-    CGPoint center = CGPointMake(self.vContent.center.x, self.vContent.center.y + self.vContent.bounds.size.height * currentPage);
+    
+    CGPoint center = CGPointZero;
+    if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait) {
+        NSUInteger currentPage = roundf(self.vContent.contentOffset.y / (self.vContent.frame.size.height));
+        center = CGPointMake(self.vContent.center.x, self.vContent.center.y + self.vContent.bounds.size.height * currentPage);
+    } else {
+        NSUInteger currentPage = roundf(self.vContent.contentOffset.x / (self.vContent.frame.size.width));
+        center = CGPointMake(self.vContent.center.x  + self.vContent.bounds.size.width * currentPage, self.vContent.center.y);
+    }
     [UIView animateWithDuration:0.3f animations:^{
         if (CGPointEqualToPoint(center, tappedClipView.center)) {
             tappedClipView.frame = [self.clipViewsFrames[tappedClipView.tag] CGRectValue];
