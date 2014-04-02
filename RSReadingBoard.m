@@ -66,6 +66,8 @@
 
 @property (nonatomic, strong) NSArray *clipViewsFrames;
 
+@property (nonatomic) NSUInteger lastPage;
+
 @end
 
 @implementation RSReadingBoard
@@ -505,8 +507,14 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             self.lSource.text = self.article.source;
             self.lDate.text = self.article.date;
             if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait) {
-                self.lclTitleTrailing.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTrailing)] floatValue];
-                self.lcvColorLeading.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcvColorLeading)] floatValue];
+                // FIXME: Avoid auto layout warning logs
+                if (self.lastPage < currentPage) {
+                    self.lclTitleTrailing.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTrailing)] floatValue];
+                    self.lcvColorLeading.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcvColorLeading)] floatValue];
+                } else {
+                    self.lcvColorLeading.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcvColorLeading)] floatValue];
+                    self.lclTitleTrailing.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTrailing)] floatValue];
+                }
             }
             [self layoutHeader:YES];
             
@@ -519,12 +527,21 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             self.lSource.text = nil;
             self.lDate.text = nil;
             if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait) {
-                self.lclTitleTrailing.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTrailing)] floatValue] + self.vContent.bounds.size.width * currentPage;
-                self.lcvColorLeading.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcvColorLeading)] floatValue] + self.vContent.bounds.size.width * currentPage;
+                // FIXME: Avoid auto layout warning logs
+                if (self.lastPage < currentPage) {
+                    self.lclTitleTrailing.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTrailing)] floatValue] + self.vContent.bounds.size.width * currentPage;
+                    self.lcvColorLeading.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcvColorLeading)] floatValue] + self.vContent.bounds.size.width * currentPage;
+                } else {
+                    self.lcvColorLeading.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcvColorLeading)] floatValue] + self.vContent.bounds.size.width * currentPage;
+                    self.lclTitleTrailing.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTrailing)] floatValue] + self.vContent.bounds.size.width * currentPage;
+                }
+                
                 self.lclTitleTop.constant = -self.lcivImageHeight.constant + roundf((self.contentInsets.top - self.lTitle.bounds.size.height) / 2.0f);
             }
             [self layoutHeader:YES];
         }
+        
+        self.lastPage = currentPage;
         
         for (RSClipView *clipView in self.clipViews) {
             clipView.frame = [self.clipViewsFrames[clipView.tag] CGRectValue];
