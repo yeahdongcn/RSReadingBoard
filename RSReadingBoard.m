@@ -219,10 +219,13 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+    self.lastPage = 0;
+    
     self.lclTitleTop.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTop)] floatValue];
     self.lcVerticalSpaceBetweenlTitlelSource.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcVerticalSpaceBetweenlTitlelSource)] floatValue];
-    self.lclTitleTrailing.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTrailing)] floatValue];
+    
     self.lcvColorLeading.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcvColorLeading)] floatValue];
+    self.lclTitleTrailing.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTrailing)] floatValue];
     
     self.lcivImageBottom.constant = 0;
     self.lcivImageTrailing.constant = 0;
