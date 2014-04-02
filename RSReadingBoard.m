@@ -293,10 +293,47 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
                 NSMutableArray *paths = [[NSMutableArray alloc] init];
                 UIView *referenceView = [[UIView alloc] initWithFrame:frame];
                 [self.vContent addSubview:referenceView];
-                for (RSClipView *clipView in self.clipViews) {
-                    CGRect frame = [referenceView convertRect:clipView.bounds
-                                                     fromView:clipView];
+                __block CGFloat y = NSNotFound;
+                [self.clipViews enumerateObjectsUsingBlock:^(RSClipView *clipView, NSUInteger idx, BOOL *stop) {
+                    if (y == NSNotFound) {
+                        y = clipView.frame.origin.y;
+                    } else if (y != clipView.frame.origin.y) {
+                        y = CGFLOAT_MAX;
+                        *stop = YES;
+                    }
+                }];
+                if (y == CGFLOAT_MAX) {
+                    for (RSClipView *clipView in self.clipViews) {
+                        CGRect frame = [referenceView convertRect:clipView.bounds
+                                                         fromView:clipView];
+                        [paths addObject:[UIBezierPath bezierPathWithRect:frame]];
+                    }
+                } else {
+                    CGRect frame = CGRectMake(CGFLOAT_MAX, CGFLOAT_MAX, 0, 0);
+                    for (RSClipView *clipView in self.clipViews) {
+                        if (frame.origin.x > clipView.frame.origin.x) {
+                            frame.origin.x = clipView.frame.origin.x;
+                        }
+                        
+                        if (frame.origin.y > clipView.frame.origin.y) {
+                            frame.origin.y = clipView.frame.origin.y;
+                        }
+                        
+                        if ((clipView.frame.origin.x + clipView.frame.size.width) > frame.size.width) {
+                            frame.size.width = (clipView.frame.origin.x + clipView.frame.size.width);
+                        }
+                        if ((clipView.frame.origin.y + clipView.frame.size.height) > frame.size.height) {
+                            frame.size.height = (clipView.frame.origin.y + clipView.frame.size.height);
+                        }
+                    }
+                    frame.size.width -= frame.origin.x;
+                    frame.size.height -= frame.origin.y;
+                    UIView *view = [[UIView alloc] initWithFrame:frame];
+                    [self.vContent addSubview:view];
+                    frame = [referenceView convertRect:view.bounds
+                                              fromView:view];
                     [paths addObject:[UIBezierPath bezierPathWithRect:frame]];
+                    [view removeFromSuperview];
                 }
                 [referenceView removeFromSuperview];
                 
