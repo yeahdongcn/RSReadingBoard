@@ -8,16 +8,19 @@ RSReadingBoard is a ZAKER alike news/article reading board for iOS7 and demonstr
 Screen shots
 ------------
 
-iPhone
+####iPhone
 
 ![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/1.png?raw=true)![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/2.png?raw=true)![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/3.png?raw=true)
 
-iPad
+####iPad
 
 ![ScreenShot](https://github.com/yeahdongcn/RSReadingBoard/blob/master/iPad_landscape.png?raw=true)
 
 Usage
 ------------
+1. Import `RSReadingBoard.h` `RSReadingBoard.m` and xib files into your project. 
+2. If you need custom layout go directly modifiy the xib file but do `NOT` change the relationships between the default controls. For example, you do not want the color line view, set its width to `0`. 
+3. Import `RSReadingBoard.h` into your code, this header file is well commented, try change these public properties to achieve your goal.
 
 License
 ------------
