@@ -75,6 +75,16 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 
 #pragma mark - Private methods
 
+- (CGFloat)widthForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    CGSize size = [UIScreen mainScreen].bounds.size;
+    if (interfaceOrientation == UIInterfaceOrientationPortrait) {
+        return size.width > size.height ? size.height : size.width;
+    } else {
+        return size.width > size.height ? size.width : size.height;
+    }
+}
+
 - (void)tap:(UITapGestureRecognizer *)tap
 {
     RSClipView *tappedClipView = (RSClipView *)tap.view;
@@ -99,6 +109,19 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             }
         }];
     }];
+}
+
+- (void)layoutImageByInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if (interfaceOrientation == UIInterfaceOrientationPortrait) {
+        self.lcivImageWidth.constant = [self widthForInterfaceOrientation:UIInterfaceOrientationPortrait];
+    } else {
+        self.lcivImageWidth.constant = roundf([self widthForInterfaceOrientation:UIInterfaceOrientationLandscapeLeft] / 2.0f);
+    }
+    self.lcivImageHeight.constant = roundf(self.lcivImageWidth.constant / 2.0f);
+    
+    [self.oldConstants setObject:@(self.lcivImageTop.constant) forKey:PROPERTY_NAME(self.lcivImageTop)];
+    [self.oldConstants setObject:@(self.lcivImageHeight.constant) forKey:PROPERTY_NAME(self.lcivImageHeight)];
 }
 
 #pragma mark - Quick creation
@@ -161,8 +184,8 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
      */
     self.vContent.delegate = self;
     
-    [self.oldConstants setObject:@(self.lcivImageTop.constant) forKey:PROPERTY_NAME(self.lcivImageTop)];
-    [self.oldConstants setObject:@(self.lcivImageHeight.constant) forKey:PROPERTY_NAME(self.lcivImageHeight)];
+    [self layoutImageByInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    
     [self.oldConstants setObject:@(self.lclTitleTop.constant) forKey:PROPERTY_NAME(self.lclTitleTop)];
     [self.oldConstants setObject:@(self.lcVerticalSpaceBetweenlTitlelSource.constant) forKey:PROPERTY_NAME(self.lcVerticalSpaceBetweenlTitlelSource)];
     if (self.lTitle.font) {
@@ -182,14 +205,19 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     }
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self layoutImageByInterfaceOrientation:toInterfaceOrientation];
+    
+    if (self.article) {
+        self.article = self.article;
+    }
+}
+
 #pragma mark - Setters
 
 - (void)setArticle:(RSArticle *)article
 {
-    if (_article == article) {
-        return;
-    }
-    
     _article = article;
     
     dispatch_async(dispatch_get_main_queue(), ^{
