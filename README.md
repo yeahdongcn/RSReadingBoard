@@ -19,8 +19,8 @@ Screen shots
 Usage
 ------------
 1. Import `RSReadingBoard.h` `RSReadingBoard.m` and xib files into your project. 
-2. If you need custom layout go directly modifiy the xib file but do `NOT` change the relationships between the default controls. For example, you do not want the color line view, set its width to `0`. 
-3. Import `RSReadingBoard.h` into your code, this header file is well commented, try change these public properties to achieve your goal.
+2. If you need custom layout go directly modify the xib file but do `NOT` change the relationships between the default controls. For example, you do not want the colour line view, set its width to `0`. 
+3. Import `RSReadingBoard.h` into your code, this header file has been well commented, try change these public properties to achieve your goal.
 
 License
 ------------
