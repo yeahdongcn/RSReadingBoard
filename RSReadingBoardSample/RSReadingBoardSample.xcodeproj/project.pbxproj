@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0071D8018EBE286002843A6 /* RSReadingBoard_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0071D7F18EBE286002843A6 /* RSReadingBoard_iPad.xib */; };
 		D080275C18E2CFD70095F1FB /* Body.txt in Resources */ = {isa = PBXBuildFile; fileRef = D080275B18E2CFD70095F1FB /* Body.txt */; };
 		D08897C318E9126100CF14D5 /* UIImage+Fitness.m in Sources */ = {isa = PBXBuildFile; fileRef = D08897C218E9126100CF14D5 /* UIImage+Fitness.m */; };
 		D0C2E45E18E15B2400B784B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C2E45D18E15B2400B784B8 /* Foundation.framework */; };
@@ -16,13 +17,13 @@
 		D0C2E46A18E15B2400B784B8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2E46918E15B2400B784B8 /* main.m */; };
 		D0C2E46E18E15B2400B784B8 /* RSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2E46D18E15B2400B784B8 /* RSAppDelegate.m */; };
 		D0C2E47918E15B2400B784B8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C2E47818E15B2400B784B8 /* Images.xcassets */; };
-		D0C2E4A318E170C200B784B8 /* RSReadingBoard_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2E49F18E170C200B784B8 /* RSReadingBoard_iPad.xib */; };
 		D0C2E4A418E170C200B784B8 /* RSReadingBoard_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2E4A018E170C200B784B8 /* RSReadingBoard_iPhone.xib */; };
 		D0C2E4A518E170C200B784B8 /* RSReadingBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2E4A218E170C200B784B8 /* RSReadingBoard.m */; };
 		D0C2E4A818E174A600B784B8 /* RSArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2E4A718E174A600B784B8 /* RSArticle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D0071D7F18EBE286002843A6 /* RSReadingBoard_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RSReadingBoard_iPad.xib; path = ../RSReadingBoard_iPad.xib; sourceTree = "<group>"; };
 		D080275B18E2CFD70095F1FB /* Body.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Body.txt; sourceTree = "<group>"; };
 		D08897C118E9126100CF14D5 /* UIImage+Fitness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Fitness.h"; sourceTree = "<group>"; };
 		D08897C218E9126100CF14D5 /* UIImage+Fitness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Fitness.m"; sourceTree = "<group>"; };
@@ -38,7 +39,6 @@
 		D0C2E46D18E15B2400B784B8 /* RSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSAppDelegate.m; sourceTree = "<group>"; };
 		D0C2E47818E15B2400B784B8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D0C2E47F18E15B2400B784B8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		D0C2E49F18E170C200B784B8 /* RSReadingBoard_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RSReadingBoard_iPad.xib; path = ../RSReadingBoard_iPad.xib; sourceTree = "<group>"; };
 		D0C2E4A018E170C200B784B8 /* RSReadingBoard_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RSReadingBoard_iPhone.xib; path = ../RSReadingBoard_iPhone.xib; sourceTree = "<group>"; };
 		D0C2E4A118E170C200B784B8 /* RSReadingBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSReadingBoard.h; path = ../RSReadingBoard.h; sourceTree = "<group>"; };
 		D0C2E4A218E170C200B784B8 /* RSReadingBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSReadingBoard.m; path = ../RSReadingBoard.m; sourceTree = "<group>"; };
@@ -126,8 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				D08897C018E9126100CF14D5 /* RSImageFitness */,
-				D0C2E49F18E170C200B784B8 /* RSReadingBoard_iPad.xib */,
 				D0C2E4A018E170C200B784B8 /* RSReadingBoard_iPhone.xib */,
+				D0071D7F18EBE286002843A6 /* RSReadingBoard_iPad.xib */,
 				D0C2E4A118E170C200B784B8 /* RSReadingBoard.h */,
 				D0C2E4A218E170C200B784B8 /* RSReadingBoard.m */,
 				D0C2E4A618E174A600B784B8 /* RSArticle.h */,
@@ -190,9 +190,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0C2E4A418E170C200B784B8 /* RSReadingBoard_iPhone.xib in Resources */,
+				D0071D8018EBE286002843A6 /* RSReadingBoard_iPad.xib in Resources */,
 				D080275C18E2CFD70095F1FB /* Body.txt in Resources */,
 				D0C2E47918E15B2400B784B8 /* Images.xcassets in Resources */,
-				D0C2E4A318E170C200B784B8 /* RSReadingBoard_iPad.xib in Resources */,
 				D0C2E46818E15B2400B784B8 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
