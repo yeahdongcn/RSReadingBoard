@@ -85,6 +85,19 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     }
 }
 
+- (void)layoutImageByInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if (interfaceOrientation == UIInterfaceOrientationPortrait) {
+        self.lcivImageWidth.constant = [self widthForInterfaceOrientation:UIInterfaceOrientationPortrait];
+    } else {
+        self.lcivImageWidth.constant = roundf([self widthForInterfaceOrientation:UIInterfaceOrientationLandscapeLeft] / 2.0f);
+    }
+    self.lcivImageHeight.constant = roundf(self.lcivImageWidth.constant / 2.0f);
+    
+    [self.oldConstants setObject:@(self.lcivImageTop.constant) forKey:PROPERTY_NAME(self.lcivImageTop)];
+    [self.oldConstants setObject:@(self.lcivImageHeight.constant) forKey:PROPERTY_NAME(self.lcivImageHeight)];
+}
+
 - (void)tap:(UITapGestureRecognizer *)tap
 {
     RSClipView *tappedClipView = (RSClipView *)tap.view;
@@ -109,19 +122,6 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             }
         }];
     }];
-}
-
-- (void)layoutImageByInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if (interfaceOrientation == UIInterfaceOrientationPortrait) {
-        self.lcivImageWidth.constant = [self widthForInterfaceOrientation:UIInterfaceOrientationPortrait];
-    } else {
-        self.lcivImageWidth.constant = roundf([self widthForInterfaceOrientation:UIInterfaceOrientationLandscapeLeft] / 2.0f);
-    }
-    self.lcivImageHeight.constant = roundf(self.lcivImageWidth.constant / 2.0f);
-    
-    [self.oldConstants setObject:@(self.lcivImageTop.constant) forKey:PROPERTY_NAME(self.lcivImageTop)];
-    [self.oldConstants setObject:@(self.lcivImageHeight.constant) forKey:PROPERTY_NAME(self.lcivImageHeight)];
 }
 
 #pragma mark - Quick creation
@@ -186,6 +186,9 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
     
     [self layoutImageByInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     
+    [self.oldConstants setObject:@(self.lcvColorLeading.constant) forKey:PROPERTY_NAME(self.lcvColorLeading)];
+    [self.oldConstants setObject:@(self.lclTitleTrailing.constant) forKey:PROPERTY_NAME(self.lclTitleTrailing)];
+    
     [self.oldConstants setObject:@(self.lclTitleTop.constant) forKey:PROPERTY_NAME(self.lclTitleTop)];
     [self.oldConstants setObject:@(self.lcVerticalSpaceBetweenlTitlelSource.constant) forKey:PROPERTY_NAME(self.lcVerticalSpaceBetweenlTitlelSource)];
     if (self.lTitle.font) {
@@ -207,6 +210,9 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+    self.lcivImageBottom.constant = 0;
+    self.lcivImageTrailing.constant = 0;
+    
     [self layoutImageByInterfaceOrientation:toInterfaceOrientation];
     
     if (self.article) {
@@ -307,10 +313,20 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             NSUInteger lastGlyph = 0;
             NSUInteger currentPage = 0;
             while (lastGlyph < self.layoutManager.numberOfGlyphs) {
-                CGRect frame = CGRectMake(self.contentInsets.left,
-                                          self.contentInsets.top + self.vContent.bounds.size.height * currentPage,
-                                          self.vContent.bounds.size.width - self.contentInsets.left - self.contentInsets.right,
-                                          self.vContent.bounds.size.height - self.contentInsets.top - self.contentInsets.bottom);
+                CGRect frame = CGRectZero;
+                if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait) {
+                    frame = CGRectMake(self.contentInsets.left,
+                                       self.contentInsets.top + self.vContent.bounds.size.height * currentPage,
+                                       self.vContent.bounds.size.width - self.contentInsets.left - self.contentInsets.right,
+                                       self.vContent.bounds.size.height - self.contentInsets.top - self.contentInsets.bottom);
+                    
+                } else {
+                    frame = CGRectMake(self.contentInsets.left + self.lcivImageWidth.constant * currentPage,
+                                       (currentPage % 2 == 1) ? self.contentInsets.bottom : self.contentInsets.top,
+                                       self.lcivImageWidth.constant - self.contentInsets.left - self.contentInsets.right,
+                                       self.vContent.bounds.size.height - self.contentInsets.top - self.contentInsets.bottom);
+                }
+                
                 if (currentPage == 0) {
                     CGFloat δ = self.vColor.frame.origin.y + self.vColor.bounds.size.height;
                     frame.origin.y = δ;
@@ -384,7 +400,11 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             for (RSClipView *clipView in self.clipViews) {
                 [self.vContent bringSubviewToFront:clipView];
             }
-            self.lcivImageBottom.constant = self.vContent.bounds.size.height * currentPage - self.lcivImageHeight.constant;
+            if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait) {
+                self.lcivImageBottom.constant = self.vContent.bounds.size.height * currentPage - self.lcivImageHeight.constant;
+            } else {
+                self.lcivImageTrailing.constant = self.vContent.bounds.size.width * (currentPage / 2 + ((currentPage % 2) == 1 ? 1 : 0)) - self.lcivImageWidth.constant;
+            }
         }
     });
 }
@@ -446,7 +466,12 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     if (scrollView == self.vContent) {
-        NSUInteger currentPage = roundf(scrollView.contentOffset.y / (scrollView.frame.size.height));
+        NSUInteger currentPage = 0;
+        if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait) {
+            currentPage = roundf(scrollView.contentOffset.y / (scrollView.frame.size.height));
+        } else {
+            currentPage = roundf(scrollView.contentOffset.x / (scrollView.frame.size.width));
+        }
         if (currentPage == 0) {
             self.lTitle.font = [self.oldConstants objectForKey:[NSString stringWithFormat:@"%@%@", PROPERTY_NAME(self.lTitle), @"Font"]];
             self.lTitle.textColor = [self.oldConstants objectForKey:[NSString stringWithFormat:@"%@%@", PROPERTY_NAME(self.lTitle), @"Color"]];
@@ -454,6 +479,10 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             self.lcVerticalSpaceBetweenlTitlelSource.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcVerticalSpaceBetweenlTitlelSource)] floatValue];
             self.lSource.text = self.article.source;
             self.lDate.text = self.article.date;
+            if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait) {
+                self.lclTitleTrailing.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTrailing)] floatValue];
+                self.lcvColorLeading.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcvColorLeading)] floatValue];
+            }
             [self layoutHeader:YES];
             
         } else if (currentPage > 0) {
@@ -464,6 +493,11 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             self.lcVerticalSpaceBetweenlTitlelSource.constant = 0;
             self.lSource.text = nil;
             self.lDate.text = nil;
+            if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait) {
+                self.lclTitleTrailing.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lclTitleTrailing)] floatValue] + self.vContent.bounds.size.width * currentPage;
+                self.lcvColorLeading.constant = [[self.oldConstants objectForKey:PROPERTY_NAME(self.lcvColorLeading)] floatValue] + self.vContent.bounds.size.width * currentPage;
+                self.lclTitleTop.constant = -self.lcivImageHeight.constant + roundf((self.contentInsets.top - self.lTitle.bounds.size.height) / 2.0f);
+            }
             [self layoutHeader:YES];
         }
         

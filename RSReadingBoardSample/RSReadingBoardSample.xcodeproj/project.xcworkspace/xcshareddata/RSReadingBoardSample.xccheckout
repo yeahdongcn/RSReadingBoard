@@ -11,7 +11,7 @@
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>4AF81FA6-2133-454E-B28A-364CAC56958E</key>
-		<string>https://github.com/wesleysui/RSReadingBoard.git</string>
+		<string>https://github.com/yeahdongcn/RSReadingBoard.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>RSReadingBoardSample/RSReadingBoardSample.xcodeproj/project.xcworkspace</string>
@@ -21,7 +21,7 @@
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/wesleysui/RSReadingBoard.git</string>
+	<string>https://github.com/yeahdongcn/RSReadingBoard.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
