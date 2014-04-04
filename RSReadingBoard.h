@@ -19,6 +19,12 @@
  */
 @property (nonatomic) BOOL enableImageDragZoomIn; // default is YES
 
+/**
+ *  Clip scale on tap
+ */
+@property (nonatomic) CGFloat scaleX; // default is 2.0f
+@property (nonatomic) CGFloat scaleY; // default is 2.0f
+
 #pragma mark - Appearance
 
 /**

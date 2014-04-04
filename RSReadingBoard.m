@@ -117,6 +117,8 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
             tappedClipView.frame = [self.clipViewsFrames[tappedClipView.tag] CGRectValue];
         } else {
             tappedClipView.center = center;
+            tappedClipView.transform = CGAffineTransformScale(tappedClipView.transform,
+                                                              self.scaleX, self.scaleY);
             [self.vContent bringSubviewToFront:tappedClipView];
         }
     }];
@@ -155,6 +157,8 @@ static NSString *const kReadingBoardNib_iPad   = @"RSReadingBoard_iPad";
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        self.scaleX = 3.0f;
+        self.scaleY = 3.0f;
         
         self.contentInsets = UIEdgeInsetsMake(60, 20, 20, 20);
         
