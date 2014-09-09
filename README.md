@@ -6,8 +6,6 @@ RSReadingBoard
 
 RSReadingBoard is a ZAKER alike news/article reading board for iOS7 and demonstrates how to use Auto Layout. For iPhone only UIInterfaceOrientationMaskPortrait is supported and for iPad UIInterfaceOrientationMaskAllButUpsideDown is supported.
 
-#持续关注马航事件。
-
 Screen shots
 ------------
 
